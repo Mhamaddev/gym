@@ -1,0 +1,300 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Dark mode configuration */
+@layer base {
+  html.dark {
+    color-scheme: dark;
+  }
+  
+  .dark {
+    background-color: #111827;
+    color: #f9fafb;
+  }
+  
+  .dark .bg-white {
+    background-color: #1f2937 !important;
+  }
+  
+  .dark .bg-gray-50 {
+    background-color: #111827 !important;
+  }
+  
+  .dark .bg-gray-100 {
+    background-color: #1f2937 !important;
+  }
+  
+  .dark .text-gray-900 {
+    color: #f9fafb !important;
+  }
+  
+  .dark .text-gray-800 {
+    color: #e5e7eb !important;
+  }
+  
+  .dark .text-gray-700 {
+    color: #d1d5db !important;
+  }
+  
+  .dark .text-gray-600 {
+    color: #9ca3af !important;
+  }
+  
+  .dark .text-gray-500 {
+    color: #6b7280 !important;
+  }
+  
+  .dark .text-gray-400 {
+    color: #9ca3af !important;
+  }
+  
+  .dark .text-gray-300 {
+    color: #d1d5db !important;
+  }
+  
+  .dark .border-gray-200 {
+    border-color: #374151 !important;
+  }
+  
+  .dark .border-gray-300 {
+    border-color: #4b5563 !important;
+  }
+  
+  .dark .hover\:bg-gray-50:hover {
+    background-color: #374151 !important;
+  }
+  
+  .dark .hover\:bg-gray-100:hover {
+    background-color: #4b5563 !important;
+  }
+  
+  .dark .hover\:bg-gray-200:hover {
+    background-color: #4b5563 !important;
+  }
+  
+  .dark .hover\:border-gray-300:hover {
+    border-color: #6b7280 !important;
+  }
+  
+  .dark .hover\:border-gray-400:hover {
+    border-color: #9ca3af !important;
+  }
+}
+
+/* Import Google Fonts for Arabic and Kurdish support */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700&family=Noto+Sans:wght@400;500;600;700&display=swap');
+
+/* Theme color CSS variables */
+:root {
+  --theme-color: #F97316;
+  --theme-color-rgb: 249, 115, 22;
+  --theme-color-light: rgb(269, 135, 42);
+  --theme-color-dark: rgb(229, 95, 2);
+  --theme-color-50: rgba(249, 115, 22, 0.05);
+  --theme-color-100: rgba(249, 115, 22, 0.1);
+  --theme-color-200: rgba(249, 115, 22, 0.2);
+}
+
+/* RTL Support */
+[dir="rtl"] {
+  direction: rtl;
+  text-align: right;
+}
+
+[dir="rtl"] .text-left {
+  text-align: right;
+}
+
+[dir="rtl"] .text-right {
+  text-align: left;
+}
+
+[dir="rtl"] .ml-64 {
+  margin-left: 0;
+  margin-right: 16rem;
+}
+
+[dir="rtl"] .mr-2 {
+  margin-right: 0;
+  margin-left: 0.5rem;
+}
+
+[dir="rtl"] .mr-3 {
+  margin-right: 0;
+  margin-left: 0.75rem;
+}
+
+[dir="rtl"] .ml-2 {
+  margin-left: 0;
+  margin-right: 0.5rem;
+}
+
+[dir="rtl"] .ml-3 {
+  margin-left: 0;
+  margin-right: 0.75rem;
+}
+
+[dir="rtl"] .left-0 {
+  left: auto;
+  right: 0;
+}
+
+[dir="rtl"] .right-4 {
+  right: 1rem;
+  left: auto;
+}
+
+[dir="rtl"] .right-0 {
+  right: auto;
+  left: 0;
+}
+
+[dir="rtl"] .left-4 {
+  left: auto;
+  right: 1rem;
+}
+
+[dir="rtl"] .pl-10 {
+  padding-left: 0;
+  padding-right: 2.5rem;
+}
+
+[dir="rtl"] .pr-4 {
+  padding-right: 0;
+  padding-left: 1rem;
+}
+
+[dir="rtl"] .px-6 {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+[dir="rtl"] .ml-3 {
+  margin-left: 0;
+  margin-right: 0.75rem;
+}
+
+/* RTL Transform utilities */
+[dir="rtl"] .translate-x-full {
+  --tw-translate-x: 100%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+[dir="rtl"] .-translate-x-full {
+  --tw-translate-x: -100%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+[dir="rtl"] .transform {
+  --tw-translate-x: 0;
+  --tw-translate-y: 0;
+  --tw-rotate: 0;
+  --tw-skew-x: 0;
+  --tw-skew-y: 0;
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+/* Font families for different languages */
+.font-arabic {
+  font-family: 'Noto Sans Arabic', sans-serif;
+}
+
+.font-kurdish {
+  font-family: 'Noto Sans Arabic', sans-serif; /* Kurdish uses Arabic script */
+}
+
+.font-english {
+  font-family: 'Noto Sans', sans-serif;
+}
+
+/* Apply appropriate font based on language */
+html[lang="ar"] {
+  font-family: 'Noto Sans Arabic', sans-serif;
+  direction: rtl;
+}
+
+html[lang="ku"] {
+  font-family: 'Noto Sans Arabic', sans-serif;
+  direction: rtl;
+}
+
+html[lang="en"] {
+  font-family: 'Noto Sans', sans-serif;
+  direction: ltr;
+}
+
+/* Apply theme colors to common elements */
+.bg-orange-600 {
+  background-color: var(--theme-color) !important;
+}
+
+.bg-orange-700 {
+  background-color: var(--theme-color-dark) !important;
+}
+
+.bg-orange-50 {
+  background-color: var(--theme-color-50) !important;
+}
+
+.bg-orange-100 {
+  background-color: var(--theme-color-100) !important;
+}
+
+.bg-orange-200 {
+  background-color: var(--theme-color-200) !important;
+}
+
+.text-orange-600 {
+  color: var(--theme-color) !important;
+}
+
+.text-orange-700 {
+  color: var(--theme-color-dark) !important;
+}
+
+.text-orange-400 {
+  color: var(--theme-color) !important;
+}
+
+.border-orange-500 {
+  border-color: var(--theme-color) !important;
+}
+
+.border-orange-200 {
+  border-color: var(--theme-color-200) !important;
+}
+
+.hover\:bg-orange-700:hover {
+  background-color: var(--theme-color-dark) !important;
+}
+
+.hover\:bg-orange-200:hover {
+  background-color: var(--theme-color-200) !important;
+}
+
+.hover\:text-orange-700:hover {
+  color: var(--theme-color-dark) !important;
+}
+
+.focus\:ring-orange-500:focus {
+  --tw-ring-color: var(--theme-color) !important;
+}
+
+.focus\:ring-orange-500:focus {
+  box-shadow: 0 0 0 3px rgba(var(--theme-color-rgb), 0.1) !important;
+}
+
+/* Custom font fallback styles */
+.custom-font-fallback {
+  font-family: 'Noto Sans Arabic', 'Noto Sans', sans-serif;
+}
+
+/* Ensure proper font loading */
+@supports (font-display: swap) {
+  .font-loading {
+    font-display: swap;
+  }
+}
