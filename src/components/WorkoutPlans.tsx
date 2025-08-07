@@ -33,10 +33,15 @@ export const WorkoutPlans: React.FC<WorkoutPlansProps> = ({
   const handleDownloadPDF = async (plan: WorkoutPlan) => {
     setIsGeneratingPDF(true);
     try {
+      console.log('Starting PDF download for plan:', plan.id);
       await generateWorkoutPlanPDF(plan, gymSettings);
+      console.log('PDF download completed successfully');
     } catch (error) {
       console.error('Failed to generate PDF:', error);
-      alert('Failed to generate PDF. Please try again.');
+      
+      // Show user-friendly error message
+      const errorMessage = error instanceof Error ? error.message : 'Failed to generate PDF. Please try again.';
+      alert(`PDF Generation Error: ${errorMessage}`);
     } finally {
       setIsGeneratingPDF(false);
     }

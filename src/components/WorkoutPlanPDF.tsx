@@ -1,91 +1,28 @@
 import React from 'react';
-import { Document, Page, Text, View, StyleSheet, Font, Image } from '@react-pdf/renderer';
+import { Document, Page, Text, View, StyleSheet, Image } from '@react-pdf/renderer';
 import { WorkoutPlan, GymSettings, CategoryWithDays } from '../types';
 import { format } from 'date-fns';
 
-// Register fonts for PDF generation
-const registerFonts = (customFont?: string) => {
-  // Register default fonts
-  Font.register({
-    family: 'Roboto',
-    fonts: [
-      {
-        src: 'https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-light-webfont.ttf',
-        fontWeight: 300,
-      },
-      {
-        src: 'https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-regular-webfont.ttf',
-        fontWeight: 400,
-      },
-      {
-        src: 'https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-medium-webfont.ttf',
-        fontWeight: 500,
-      },
-      {
-        src: 'https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-bold-webfont.ttf',
-        fontWeight: 700,
-      },
-    ],
-  });
-
-  // Register Arabic/Kurdish font
-  Font.register({
-    family: 'NotoSansArabic',
-    fonts: [
-      {
-        src: 'https://fonts.gstatic.com/s/notosansarabic/v18/nwpxtLGrOAZMl5nJ_wfgRg3DrWFZWsnVBJ_sS6tlqHHFlhQ5l3sQWIHPqzCfyGyvu3CBFQLaig.ttf',
-        fontWeight: 400,
-      },
-      {
-        src: 'https://fonts.gstatic.com/s/notosansarabic/v18/nwpxtLGrOAZMl5nJ_wfgRg3DrWFZWsnVBJ_sS6tlqHHFlhQ5l3sQWIHPqzCfyG6vu3CBFQLaig.ttf',
-        fontWeight: 700,
-      },
-    ],
-  });
-
-  // Register custom font if provided
-  if (customFont) {
-    try {
-      Font.register({
-        family: 'CustomFont',
-        src: customFont,
-      });
-    } catch (error) {
-      console.warn('Failed to register custom font:', error);
-    }
-  }
-};
-
-const createStyles = (language: string, themeColor: string, customFont?: string) => {
-  // Determine font family based on language and custom font availability
-  let fontFamily = 'Roboto';
-  
-  if (customFont) {
-    fontFamily = 'CustomFont';
-  } else if (language === 'ar' || language === 'ku') {
-    fontFamily = 'NotoSansArabic';
-  }
-
+// Remove font registration completely and use default fonts
+const createStyles = (language: string, themeColor: string) => {
   return StyleSheet.create({
     page: {
       flexDirection: 'column',
       backgroundColor: '#FFFFFF',
       padding: 20,
-      fontFamily: fontFamily,
-      direction: 'ltr', // Always use LTR
     },
     header: {
       marginBottom: 20,
       borderBottomWidth: 2,
       borderBottomColor: themeColor,
       paddingBottom: 10,
-      flexDirection: 'row', // Always use row
+      flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
     },
     headerContent: {
       flex: 1,
-      alignItems: 'flex-start', // Always use flex-start
+      alignItems: 'flex-start',
     },
     logo: {
       width: 40,
@@ -98,15 +35,13 @@ const createStyles = (language: string, themeColor: string, customFont?: string)
       fontWeight: 'bold',
       color: '#1F2937',
       marginBottom: 4,
-      textAlign: 'left', // Always use left
-      fontFamily: fontFamily,
+      textAlign: 'left',
     },
     title: {
       fontSize: 16,
       fontWeight: 'bold',
       color: themeColor,
-      textAlign: 'left', // Always use left
-      fontFamily: fontFamily,
+      textAlign: 'left',
     },
     section: {
       marginBottom: 15,
@@ -121,14 +56,13 @@ const createStyles = (language: string, themeColor: string, customFont?: string)
       fontWeight: 'bold',
       color: themeColor,
       marginBottom: 10,
-      textAlign: (language === 'ar' || language === 'ku') ? 'right' : 'left',
-      fontFamily: fontFamily,
+      textAlign: 'left',
       borderBottomWidth: 1,
       borderBottomColor: themeColor,
       paddingBottom: 4,
     },
     playerInfoContainer: {
-      flexDirection: (language === 'ar' || language === 'ku') ? 'row-reverse' : 'row',
+      flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'flex-start',
       flexWrap: 'wrap',
@@ -143,16 +77,14 @@ const createStyles = (language: string, themeColor: string, customFont?: string)
       fontWeight: 'bold',
       color: '#9CA3AF',
       marginBottom: 2,
-      textAlign: (language === 'ar' || language === 'ku') ? 'right' : 'left',
-      fontFamily: fontFamily,
+      textAlign: 'left',
       textTransform: 'uppercase',
     },
     playerInfoValue: {
       fontSize: 14,
       fontWeight: 'bold',
       color: '#1F2937',
-      textAlign: (language === 'ar' || language === 'ku') ? 'right' : 'left',
-      fontFamily: fontFamily,
+      textAlign: 'left',
     },
     totalExercisesHighlight: {
       backgroundColor: themeColor,
@@ -163,7 +95,6 @@ const createStyles = (language: string, themeColor: string, customFont?: string)
       fontSize: 12,
       fontWeight: 'bold',
       textAlign: 'center',
-      fontFamily: fontFamily,
     },
     exerciseContainer: {
       marginBottom: 12,
@@ -181,16 +112,14 @@ const createStyles = (language: string, themeColor: string, customFont?: string)
       fontWeight: 'bold',
       color: themeColor,
       marginBottom: 6,
-      textAlign: (language === 'ar' || language === 'ku') ? 'right' : 'left',
-      fontFamily: fontFamily,
+      textAlign: 'left',
       textTransform: 'uppercase',
     },
     categoryDays: {
       fontSize: 11,
       color: '#374151',
       marginBottom: 8,
-      textAlign: (language === 'ar' || language === 'ku') ? 'right' : 'left',
-      fontFamily: fontFamily,
+      textAlign: 'left',
       fontWeight: '500',
       backgroundColor: '#F3F4F6',
       paddingHorizontal: 6,
@@ -199,7 +128,7 @@ const createStyles = (language: string, themeColor: string, customFont?: string)
       alignSelf: 'flex-start',
     },
     exerciseItem: {
-      flexDirection: (language === 'ar' || language === 'ku') ? 'row-reverse' : 'row',
+      flexDirection: 'row',
       marginBottom: 8,
       padding: 8,
       backgroundColor: '#FFFFFF',
@@ -214,9 +143,8 @@ const createStyles = (language: string, themeColor: string, customFont?: string)
       color: themeColor,
       minWidth: 20,
       textAlign: 'center',
-      marginRight: (language === 'ar' || language === 'ku') ? 0 : 6,
-      marginLeft: (language === 'ar' || language === 'ku') ? 6 : 0,
-      fontFamily: fontFamily,
+      marginRight: 6,
+      marginLeft: 0,
     },
     exerciseContent: {
       flex: 1,
@@ -226,8 +154,7 @@ const createStyles = (language: string, themeColor: string, customFont?: string)
       fontWeight: 'bold',
       color: '#1F2937',
       marginBottom: 2,
-      textAlign: (language === 'ar' || language === 'ku') ? 'right' : 'left',
-      fontFamily: fontFamily,
+      textAlign: 'left',
     },
     exerciseCategory: {
       fontSize: 10,
@@ -235,11 +162,10 @@ const createStyles = (language: string, themeColor: string, customFont?: string)
       fontWeight: 'bold',
       textTransform: 'uppercase',
       marginBottom: 2,
-      textAlign: (language === 'ar' || language === 'ku') ? 'right' : 'left',
-      fontFamily: fontFamily,
+      textAlign: 'left',
     },
     exerciseDetails: {
-      flexDirection: (language === 'ar' || language === 'ku') ? 'row-reverse' : 'row',
+      flexDirection: 'row',
       flexWrap: 'wrap',
       gap: 4,
       marginBottom: 2,
@@ -252,22 +178,19 @@ const createStyles = (language: string, themeColor: string, customFont?: string)
       paddingHorizontal: 4,
       paddingVertical: 1,
       borderRadius: 2,
-      fontFamily: fontFamily,
     },
     exerciseDescription: {
       fontSize: 10,
       color: '#6B7280',
       lineHeight: 1.4,
-      textAlign: (language === 'ar' || language === 'ku') ? 'right' : 'left',
-      fontFamily: fontFamily,
+      textAlign: 'left',
     },
     exerciseNotes: {
       fontSize: 9,
       color: '#1E40AF',
       fontStyle: 'italic',
       lineHeight: 1.4,
-      textAlign: (language === 'ar' || language === 'ku') ? 'right' : 'left',
-      fontFamily: fontFamily,
+      textAlign: 'left',
     },
     notesSection: {
       marginTop: 15,
@@ -283,8 +206,7 @@ const createStyles = (language: string, themeColor: string, customFont?: string)
       fontSize: 12,
       color: '#1F2937',
       lineHeight: 1.5,
-      textAlign: (language === 'ar' || language === 'ku') ? 'right' : 'left',
-      fontFamily: fontFamily,
+      textAlign: 'left',
       fontStyle: 'italic',
     },
     footer: {
@@ -292,7 +214,7 @@ const createStyles = (language: string, themeColor: string, customFont?: string)
       bottom: 20,
       left: 20,
       right: 20,
-      flexDirection: (language === 'ar' || language === 'ku') ? 'row-reverse' : 'row',
+      flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
       paddingTop: 10,
@@ -302,15 +224,13 @@ const createStyles = (language: string, themeColor: string, customFont?: string)
     footerText: {
       fontSize: 9,
       color: '#9CA3AF',
-      textAlign: (language === 'ar' || language === 'ku') ? 'right' : 'left',
-      fontFamily: fontFamily,
+      textAlign: 'left',
       fontWeight: '500',
     },
     footerDate: {
       fontSize: 9,
       color: '#9CA3AF',
-      textAlign: (language === 'ar' || language === 'ku') ? 'left' : 'right',
-      fontFamily: fontFamily,
+      textAlign: 'right',
       fontWeight: '500',
     },
   });
@@ -324,14 +244,8 @@ interface WorkoutPlanPDFProps {
 export const WorkoutPlanPDF: React.FC<WorkoutPlanPDFProps> = ({ workoutPlan, gymSettings }) => {
   const language = gymSettings.language || 'en';
   const themeColor = gymSettings.themeColor || '#F97316';
-  const customFont = gymSettings.customFont;
 
-  // Register fonts before creating styles
-  React.useMemo(() => {
-    registerFonts(customFont);
-  }, [customFont]);
-
-  const styles = createStyles(language, themeColor, customFont);
+  const styles = createStyles(language, themeColor);
 
   // Enhanced translation function for PDF
   const getPDFText = (key: string) => {
