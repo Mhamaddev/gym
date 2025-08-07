@@ -8,11 +8,13 @@ const TestPDF: React.FC = () => {
   const styles = {
     page: {
       padding: 20,
+      fontFamily: 'Rabar',
     },
     title: {
       fontSize: 18,
       fontWeight: 'bold',
       textAlign: 'center' as const,
+      fontFamily: 'Rabar',
     },
   };
 
@@ -20,7 +22,7 @@ const TestPDF: React.FC = () => {
     <Document>
       <Page size="A4" style={styles.page}>
         <Text style={styles.title}>Test PDF Generation</Text>
-        <Text>This is a test PDF to verify that PDF generation is working.</Text>
+        <Text style={{ fontFamily: 'Rabar' }}>This is a test PDF to verify that PDF generation is working.</Text>
       </Page>
     </Document>
   );
@@ -47,12 +49,14 @@ const FallbackPDF: React.FC<{ workoutPlan: WorkoutPlan; gymSettings: GymSettings
   const styles = {
     page: {
       padding: 20,
+      fontFamily: 'Rabar',
     },
     title: {
       fontSize: 18,
       fontWeight: 'bold',
       marginBottom: 20,
       textAlign: 'center' as const,
+      fontFamily: 'Rabar',
     },
     section: {
       marginBottom: 15,
@@ -61,15 +65,18 @@ const FallbackPDF: React.FC<{ workoutPlan: WorkoutPlan; gymSettings: GymSettings
       fontSize: 14,
       fontWeight: 'bold',
       marginBottom: 10,
+      fontFamily: 'Rabar',
     },
     text: {
       fontSize: 12,
       marginBottom: 5,
+      fontFamily: 'Rabar',
     },
     exercise: {
       fontSize: 11,
       marginBottom: 3,
       marginLeft: 10,
+      fontFamily: 'Rabar',
     },
   };
 

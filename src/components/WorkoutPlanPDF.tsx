@@ -1,15 +1,22 @@
 import React from 'react';
-import { Document, Page, Text, View, StyleSheet, Image } from '@react-pdf/renderer';
+import { Document, Page, Text, View, StyleSheet, Image, Font } from '@react-pdf/renderer';
 import { WorkoutPlan, GymSettings, CategoryWithDays } from '../types';
 import { format } from 'date-fns';
 
-// Remove font registration completely and use default fonts
+// Register Rabar font for PDF generation
+Font.register({
+  family: 'Rabar',
+  src: '/assets/fonts/Rabar_021.ttf',
+});
+
+// Create styles with Rabar font
 const createStyles = (language: string, themeColor: string) => {
   return StyleSheet.create({
     page: {
       flexDirection: 'column',
       backgroundColor: '#FFFFFF',
       padding: 20,
+      fontFamily: 'Rabar',
     },
     header: {
       marginBottom: 20,
@@ -36,12 +43,14 @@ const createStyles = (language: string, themeColor: string) => {
       color: '#1F2937',
       marginBottom: 4,
       textAlign: 'left',
+      fontFamily: 'Rabar',
     },
     title: {
       fontSize: 16,
       fontWeight: 'bold',
       color: themeColor,
       textAlign: 'left',
+      fontFamily: 'Rabar',
     },
     section: {
       marginBottom: 15,
@@ -60,6 +69,7 @@ const createStyles = (language: string, themeColor: string) => {
       borderBottomWidth: 1,
       borderBottomColor: themeColor,
       paddingBottom: 4,
+      fontFamily: 'Rabar',
     },
     playerInfoContainer: {
       flexDirection: 'row',
@@ -79,12 +89,14 @@ const createStyles = (language: string, themeColor: string) => {
       marginBottom: 2,
       textAlign: 'left',
       textTransform: 'uppercase',
+      fontFamily: 'Rabar',
     },
     playerInfoValue: {
       fontSize: 14,
       fontWeight: 'bold',
       color: '#1F2937',
       textAlign: 'left',
+      fontFamily: 'Rabar',
     },
     totalExercisesHighlight: {
       backgroundColor: themeColor,
@@ -95,6 +107,7 @@ const createStyles = (language: string, themeColor: string) => {
       fontSize: 12,
       fontWeight: 'bold',
       textAlign: 'center',
+      fontFamily: 'Rabar',
     },
     exerciseContainer: {
       marginBottom: 12,
@@ -114,6 +127,7 @@ const createStyles = (language: string, themeColor: string) => {
       marginBottom: 6,
       textAlign: 'left',
       textTransform: 'uppercase',
+      fontFamily: 'Rabar',
     },
     categoryDays: {
       fontSize: 11,
@@ -126,6 +140,7 @@ const createStyles = (language: string, themeColor: string) => {
       paddingVertical: 2,
       borderRadius: 4,
       alignSelf: 'flex-start',
+      fontFamily: 'Rabar',
     },
     exerciseItem: {
       flexDirection: 'row',
@@ -145,6 +160,7 @@ const createStyles = (language: string, themeColor: string) => {
       textAlign: 'center',
       marginRight: 6,
       marginLeft: 0,
+      fontFamily: 'Rabar',
     },
     exerciseContent: {
       flex: 1,
@@ -155,6 +171,7 @@ const createStyles = (language: string, themeColor: string) => {
       color: '#1F2937',
       marginBottom: 2,
       textAlign: 'left',
+      fontFamily: 'Rabar',
     },
     exerciseCategory: {
       fontSize: 10,
@@ -163,6 +180,7 @@ const createStyles = (language: string, themeColor: string) => {
       textTransform: 'uppercase',
       marginBottom: 2,
       textAlign: 'left',
+      fontFamily: 'Rabar',
     },
     exerciseDetails: {
       flexDirection: 'row',
@@ -178,12 +196,14 @@ const createStyles = (language: string, themeColor: string) => {
       paddingHorizontal: 4,
       paddingVertical: 1,
       borderRadius: 2,
+      fontFamily: 'Rabar',
     },
     exerciseDescription: {
       fontSize: 10,
       color: '#6B7280',
       lineHeight: 1.4,
       textAlign: 'left',
+      fontFamily: 'Rabar',
     },
     exerciseNotes: {
       fontSize: 9,
@@ -191,6 +211,7 @@ const createStyles = (language: string, themeColor: string) => {
       fontStyle: 'italic',
       lineHeight: 1.4,
       textAlign: 'left',
+      fontFamily: 'Rabar',
     },
     notesSection: {
       marginTop: 15,
@@ -208,6 +229,7 @@ const createStyles = (language: string, themeColor: string) => {
       lineHeight: 1.5,
       textAlign: 'left',
       fontStyle: 'italic',
+      fontFamily: 'Rabar',
     },
     footer: {
       position: 'absolute',
@@ -226,12 +248,14 @@ const createStyles = (language: string, themeColor: string) => {
       color: '#9CA3AF',
       textAlign: 'left',
       fontWeight: '500',
+      fontFamily: 'Rabar',
     },
     footerDate: {
       fontSize: 9,
       color: '#9CA3AF',
       textAlign: 'right',
       fontWeight: '500',
+      fontFamily: 'Rabar',
     },
   });
 };

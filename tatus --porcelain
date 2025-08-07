@@ -195,4 +195,202 @@ warning: in the working copy of 'src/utils/pdfGenerator.tsx', LF will be replace
 [36m@@ -214,9 +143,8 @@[m [mconst createStyles = (language: string, themeColor: string, customFont?: string)[m
        color: themeColor,[m
        minWidth: 20,[m
-       textAlign: '
+       textAlign: 'center',[m
+[31m-      marginRight: (language === 'ar' || language === 'ku') ? 0 : 6,[m
+[31m-      marginLeft: (language === 'ar' || language === 'ku') ? 6 : 0,[m
+[31m-      fontFamily: fontFamily,[m
+[32m+[m[32m      marginRight: 6,[m
+[32m+[m[32m      marginLeft: 0,[m
+     },[m
+     exerciseContent: {[m
+       flex: 1,[m
+[36m@@ -226,8 +154,7 @@[m [mconst createStyles = (language: string, themeColor: string, customFont?: string)[m
+       fontWeight: 'bold',[m
+       color: '#1F2937',[m
+       marginBottom: 2,[m
+[31m-      textAlign: (language === 'ar' || language === 'ku') ? 'right' : 'left',[m
+[31m-      fontFamily: fontFamily,[m
+[32m+[m[32m      textAlign: 'left',[m
+     },[m
+     exerciseCategory: {[m
+       fontSize: 10,[m
+[36m@@ -235,11 +162,10 @@[m [mconst createStyles = (language: string, themeColor: string, customFont?: string)[m
+       fontWeight: 'bold',[m
+       textTransform: 'uppercase',[m
+       marginBottom: 2,[m
+[31m-      textAlign: (language === 'ar' || language === 'ku') ? 'right' : 'left',[m
+[31m-      fontFamily: fontFamily,[m
+[32m+[m[32m      textAlign: 'left',[m
+     },[m
+     exerciseDetails: {[m
+[31m-      flexDirection: (language === 'ar' || language === 'ku') ? 'row-reverse' : 'row',[m
+[32m+[m[32m      flexDirection: 'row',[m
+       flexWrap: 'wrap',[m
+       gap: 4,[m
+       marginBottom: 2,[m
+[36m@@ -252,22 +178,19 @@[m [mconst createStyles = (language: string, themeColor: string, customFont?: string)[m
+       paddingHorizontal: 4,[m
+       paddingVertical: 1,[m
+       borderRadius: 2,[m
+[31m-      fontFamily: fontFamily,[m
+     },[m
+     exerciseDescription: {[m
+       fontSize: 10,[m
+       color: '#6B7280',[m
+       lineHeight: 1.4,[m
+[31m-      textAlign: (language === 'ar' || language === 'ku') ? 'right' : 'left',[m
+[31m-      fontFamily: fontFamily,[m
+[32m+[m[32m      textAlign: 'left',[m
+     },[m
+     exerciseNotes: {[m
+       fontSize: 9,[m
+       color: '#1E40AF',[m
+       fontStyle: 'italic',[m
+       lineHeight: 1.4,[m
+[31m-      textAlign: (language === 'ar' || language === 'ku') ? 'right' : 'left',[m
+[31m-      fontFamily: fontFamily,[m
+[32m+[m[32m      textAlign: 'left',[m
+     },[m
+     notesSection: {[m
+       marginTop: 15,[m
+[36m@@ -283,8 +206,7 @@[m [mconst createStyles = (language: string, themeColor: string, customFont?: string)[m
+       fontSize: 12,[m
+       color: '#1F2937',[m
+       lineHeight: 1.5,[m
+[31m-      textAlign: (language === 'ar' || language === 'ku') ? 'right' : 'left',[m
+[31m-      fontFamily: fontFamily,[m
+[32m+[m[32m      textAlign: 'left',[m
+       fontStyle: 'italic',[m
+     },[m
+     footer: {[m
+[36m@@ -292,7 +214,7 @@[m [mconst createStyles = (language: string, themeColor: string, customFont?: string)[m
+       bottom: 20,[m
+       left: 20,[m
+       right: 20,[m
+[31m-      flexDirection: (language === 'ar' || language === 'ku') ? 'row-reverse' : 'row',[m
+[32m+[m[32m      flexDirection: 'row',[m
+       justifyContent: 'space-between',[m
+       alignItems: 'center',[m
+       paddingTop: 10,[m
+[36m@@ -302,15 +224,13 @@[m [mconst createStyles = (language: string, themeColor: string, customFont?: string)[m
+     footerText: {[m
+       fontSize: 9,[m
+       color: '#9CA3AF',[m
+[31m-      textAlign: (language === 'ar' || language === 'ku') ? 'right' : 'left',[m
+[31m-      fontFamily: fontFamily,[m
+[32m+[m[32m      textAlign: 'left',[m
+       fontWeight: '500',[m
+     },[m
+     footerDate: {[m
+       fontSize: 9,[m
+       color: '#9CA3AF',[m
+[31m-      textAlign: (language === 'ar' || language === 'ku') ? 'left' : 'right',[m
+[31m-      fontFamily: fontFamily,[m
+[32m+[m[32m      textAlign: 'right',[m
+       fontWeight: '500',[m
+     },[m
+   });[m
+[36m@@ -324,14 +244,8 @@[m [minterface WorkoutPlanPDFProps {[m
+ export const WorkoutPlanPDF: React.FC<WorkoutPlanPDFProps> = ({ workoutPlan, gymSettings }) => {[m
+   const language = gymSettings.language || 'en';[m
+   const themeColor = gymSettings.themeColor || '#F97316';[m
+[31m-  const customFont = gymSettings.customFont;[m
+[31m-[m
+[31m-  // Register fonts before creating styles[m
+[31m-  React.useMemo(() => {[m
+[31m-    registerFonts(customFont);[m
+[31m-  }, [customFont]);[m
+ [m
+[31m-  const styles = createStyles(language, themeColor, customFont);[m
+[32m+[m[32m  const styles = createStyles(language, themeColor);[m
+ [m
+   // Enhanced translation function for PDF[m
+   const getPDFText = (key: string) => {[m
+[1mdiff --git a/src/components/WorkoutPlans.tsx b/src/components/WorkoutPlans.tsx[m
+[1mindex bc84777..adc0af0 100644[m
+[1m--- a/src/components/WorkoutPlans.tsx[m
+[1m+++ b/src/components/WorkoutPlans.tsx[m
+[36m@@ -33,10 +33,15 @@[m [mexport const WorkoutPlans: React.FC<WorkoutPlansProps> = ({[m
+   const handleDownloadPDF = async (plan: WorkoutPlan) => {[m
+     setIsGeneratingPDF(true);[m
+     try {[m
+[32m+[m[32m      console.log('Starting PDF download for plan:', plan.id);[m
+       await generateWorkoutPlanPDF(plan, gymSettings);[m
+[32m+[m[32m      console.log('PDF download completed successfully');[m
+     } catch (error) {[m
+       console.error('Failed to generate PDF:', error);[m
+[31m-      alert('Failed to generate PDF. Please try again.');[m
+[32m+[m[41m      [m
+[32m+[m[32m      // Show user-friendly error message[m
+[32m+[m[32m      const errorMessage = error instanceof Error ? error.message : 'Failed to generate PDF. Please try again.';[m
+[32m+[m[32m      alert(`PDF Generation Error: ${errorMessage}`);[m
+     } finally {[m
+       setIsGeneratingPDF(false);[m
+     }[m
+[1mdiff --git a/src/utils/pdfGenerator.tsx b/src/utils/pdfGenerator.tsx[m
+[1mindex 8659393..b4a7557 100644[m
+[1m--- a/src/utils/pdfGenerator.tsx[m
+[1m+++ b/src/utils/pdfGenerator.tsx[m
+[36m@@ -1,8 +1,118 @@[m
+[31m-import { pdf } from '@react-pdf/renderer';[m
+[32m+[m[32mimport { pdf, Document, Page, Text, View } from '@react-pdf/renderer';[m
+ import React from 'react';[m
+ import { WorkoutPlan, GymSettings } from '../types';[m
+ import { WorkoutPlanPDF } from '../components/WorkoutPlanPDF';[m
+ [m
+[32m+[m[32m// Simple test PDF to verify basic functionality[m
+[32m+[m[32mconst TestPDF: React.FC = () => {[m
+[32m+[m[32m  const styles = {[m
+[32m+[m[32m    page: {[m
+[32m+[m[32m      padding: 20,[m
+[32m+[m[32m    },[m
+[32m+[m[32m    title: {[m
+[32m+[m[32m      fontSize: 18,[m
+[32m+[m[32m      fontWeight: 'bold',[m
+[32m+[m[32m      textAlign: 'center' as const,[m
+[32m+[m[32m    },[m
+[32m+[m[32m  };[m
+[32m+[m
+[32m+[m[32m  return ([m
+[32m+[m[32m    <Document>[m
+[32m+[m[32m      <Page size="A4" style={styles.page}>[m
+[32m+[m[32m        <Text style={styles.title}>Test PDF Generation</Text>[m
+[32m+[m[32m        <Text>This is a test PDF to verify that PDF generation is working.</Text>[m
+[32m+[m[32m      </Page>[m
+[32m+[m[32m    </Document>[m
+[32m+[m[32m  );[m
+[32m+[m[32m};[m
+[32m+[m
+[32m+[m[32m// Test function to verify PDF generation works[m
+[32m+[m[32mexport const testPDFGeneration = async () => {[m
+[32m+[m[32m  try {[m
+[32m+[m[32m    console.log('Testing basic PDF generation...');[m
+[32m+[m[32m    const testBlob = await pdf(<TestPDF />).toBlob();[m
+[32m+[m[32m    console.log('Test PDF generated successfully:', {[m
+[32m+[m[32m      size: testBlob.size,[m
+[32m+[m[32m      type: testBlob.type[m
+[32m+[m[32m    });[m
+[32m+[m[32m    return true;[m
+[32m+[m[32m  } catch (error) {[m
+[32m+[m[32m    console.error('Test PDF generation failed:', error);[m
+[32m+[m[32m    return false;[m
+[32m+[m[32m  }[m
+[32m+[m[32m};[m
+[32m+[m
+[32m+[m[32m// Fallback PDF component for when main PDF generation fails[m
+[32m+[m[32mconst FallbackPDF: React.FC<{ workoutPlan: WorkoutPlan; gymSettings: GymSettings }> = ({ workoutPlan, gymSettings }) => {[m
+[32m+[m[32m  const styles = {[m
+[32m+[m[32m    page: {[m
+[32m+[m[32m      padding: 20,[m
+[32m+[m[32m    },[m
+[32m+[m[32m    title: {[m
+[32m+[m[32m      fontSize: 18,[m
+[32m+[m[32m      fontWeight: 'bold',[m
+[32m+[m[32m      marginBottom: 20,[m
+[32m+[m[32m      textAlign: 'center' as const,[m
+[32m+[m[32m    },[m
+[32m+[m[32m    section: {[m
+[32m+[m[32m      marginBottom: 15,[m
+[32m+[m[32m    },[m
+[32m+[m[32m    sectionTitle: {[m
+[32m+[m[32m      fontSize: 14
