@@ -107,10 +107,10 @@ function App() {
 
   // Update document direction and language based on settings
   React.useEffect(() => {
-    const isRTL = gymSettings.language === 'ar' || gymSettings.language === 'ku';
-    document.documentElement.setAttribute('dir', isRTL ? 'rtl' : 'ltr');
+    // Always use LTR direction for all languages
+    document.documentElement.setAttribute('dir', 'ltr');
     document.documentElement.setAttribute('lang', gymSettings.language);
-    document.body.setAttribute('dir', isRTL ? 'rtl' : 'ltr');
+    document.body.setAttribute('dir', 'ltr');
     
     // Change i18n language if different
     if (i18n.language !== gymSettings.language) {
@@ -285,7 +285,7 @@ function App() {
             onToggle={handleNavToggle}
           />
           
-          <main className={`flex-1 min-h-screen ${gymSettings.language === 'ar' || gymSettings.language === 'ku' ? 'lg:mr-64' : 'lg:ml-64'} pt-16 lg:pt-0`}>
+          <main className={`flex-1 min-h-screen lg:ml-64 pt-16 lg:pt-0`}>
             {renderActiveTab()}
           </main>
         </div>

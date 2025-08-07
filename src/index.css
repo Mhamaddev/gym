@@ -85,6 +85,11 @@
 /* Import Google Fonts for Arabic and Kurdish support */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700&family=Noto+Sans:wght@400;500;600;700&display=swap');
 
+/* Force LTR direction for all languages */
+html, body {
+  direction: ltr !important;
+}
+
 /* Theme color CSS variables */
 :root {
   --theme-color: #F97316;
@@ -96,86 +101,86 @@
   --theme-color-200: rgba(249, 115, 22, 0.2);
 }
 
-/* RTL Support */
+/* LTR Support - Force LTR for all languages */
 [dir="rtl"] {
-  direction: rtl;
-  text-align: right;
+  direction: ltr !important;
+  text-align: left !important;
 }
 
 [dir="rtl"] .text-left {
-  text-align: right;
+  text-align: left !important;
 }
 
 [dir="rtl"] .text-right {
-  text-align: left;
+  text-align: right !important;
 }
 
 [dir="rtl"] .ml-64 {
-  margin-left: 0;
-  margin-right: 16rem;
+  margin-left: 16rem !important;
+  margin-right: 0 !important;
 }
 
 [dir="rtl"] .mr-2 {
-  margin-right: 0;
-  margin-left: 0.5rem;
+  margin-right: 0.5rem !important;
+  margin-left: 0 !important;
 }
 
 [dir="rtl"] .mr-3 {
-  margin-right: 0;
-  margin-left: 0.75rem;
+  margin-right: 0.75rem !important;
+  margin-left: 0 !important;
 }
 
 [dir="rtl"] .ml-2 {
-  margin-left: 0;
-  margin-right: 0.5rem;
+  margin-left: 0.5rem !important;
+  margin-right: 0 !important;
 }
 
 [dir="rtl"] .ml-3 {
-  margin-left: 0;
-  margin-right: 0.75rem;
+  margin-left: 0.75rem !important;
+  margin-right: 0 !important;
 }
 
 [dir="rtl"] .left-0 {
-  left: auto;
-  right: 0;
+  left: 0 !important;
+  right: auto !important;
 }
 
 [dir="rtl"] .right-4 {
-  right: 1rem;
-  left: auto;
+  right: 1rem !important;
+  left: auto !important;
 }
 
 [dir="rtl"] .right-0 {
-  right: auto;
-  left: 0;
+  right: 0 !important;
+  left: auto !important;
 }
 
 [dir="rtl"] .left-4 {
-  left: auto;
-  right: 1rem;
+  left: 1rem !important;
+  right: auto !important;
 }
 
 [dir="rtl"] .pl-10 {
-  padding-left: 0;
-  padding-right: 2.5rem;
+  padding-left: 2.5rem !important;
+  padding-right: 0 !important;
 }
 
 [dir="rtl"] .pr-4 {
-  padding-right: 0;
-  padding-left: 1rem;
+  padding-right: 1rem !important;
+  padding-left: 0 !important;
 }
 
 [dir="rtl"] .px-6 {
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
+  padding-left: 1.5rem !important;
+  padding-right: 1.5rem !important;
 }
 
 [dir="rtl"] .ml-3 {
-  margin-left: 0;
-  margin-right: 0.75rem;
+  margin-left: 0.75rem !important;
+  margin-right: 0 !important;
 }
 
-/* RTL Transform utilities */
+/* LTR Transform utilities */
 [dir="rtl"] .translate-x-full {
   --tw-translate-x: 100%;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
@@ -213,17 +218,17 @@
 /* Apply appropriate font based on language */
 html[lang="ar"] {
   font-family: 'Noto Sans Arabic', sans-serif;
-  direction: rtl;
+  direction: ltr !important;
 }
 
 html[lang="ku"] {
   font-family: 'Noto Sans Arabic', sans-serif;
-  direction: rtl;
+  direction: ltr !important;
 }
 
 html[lang="en"] {
   font-family: 'Noto Sans', sans-serif;
-  direction: ltr;
+  direction: ltr !important;
 }
 
 /* Apply theme colors to common elements */

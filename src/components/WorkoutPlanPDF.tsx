@@ -72,40 +72,40 @@ const createStyles = (language: string, themeColor: string, customFont?: string)
       backgroundColor: '#FFFFFF',
       padding: 20,
       fontFamily: fontFamily,
-      direction: (language === 'ar' || language === 'ku') ? 'rtl' : 'ltr',
+      direction: 'ltr', // Always use LTR
     },
     header: {
       marginBottom: 20,
       borderBottomWidth: 2,
       borderBottomColor: themeColor,
       paddingBottom: 10,
-      flexDirection: (language === 'ar' || language === 'ku') ? 'row-reverse' : 'row',
+      flexDirection: 'row', // Always use row
       alignItems: 'center',
       justifyContent: 'space-between',
     },
     headerContent: {
       flex: 1,
-      alignItems: (language === 'ar' || language === 'ku') ? 'flex-end' : 'flex-start',
+      alignItems: 'flex-start', // Always use flex-start
     },
     logo: {
       width: 40,
       height: 40,
-      marginRight: (language === 'ar' || language === 'ku') ? 0 : 10,
-      marginLeft: (language === 'ar' || language === 'ku') ? 10 : 0,
+      marginRight: 10,
+      marginLeft: 0,
     },
     gymName: {
       fontSize: 20,
       fontWeight: 'bold',
       color: '#1F2937',
       marginBottom: 4,
-      textAlign: (language === 'ar' || language === 'ku') ? 'right' : 'left',
+      textAlign: 'left', // Always use left
       fontFamily: fontFamily,
     },
     title: {
       fontSize: 16,
       fontWeight: 'bold',
       color: themeColor,
-      textAlign: (language === 'ar' || language === 'ku') ? 'right' : 'left',
+      textAlign: 'left', // Always use left
       fontFamily: fontFamily,
     },
     section: {

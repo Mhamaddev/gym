@@ -34,12 +34,10 @@ export const Navigation: React.FC<NavigationProps> = ({
   onToggle
 }) => {
   const { t } = useTranslation();
-  const isRTL = gymSettings.language === 'ar' || gymSettings.language === 'ku';
-  
   const languages = [
     { code: 'en', name: 'English', flag: '🇺🇸' },
-    { code: 'ar', name: 'العربية', flag: '🇸🇦' },
-    { code: 'ku', name: 'کوردی', flag: '🟡' },
+    { code: 'ar', name: 'Arabic', flag: '🇸🇦' },
+    { code: 'ku', name: 'Kurdish', flag: '🇮🇶' },
   ];
 
   const handleLanguageChange = async (languageCode: string) => {
@@ -72,9 +70,7 @@ export const Navigation: React.FC<NavigationProps> = ({
     <>
       {/* Mobile menu button */}
       <button
-        className={`lg:hidden fixed top-4 z-50 p-2 ${gymSettings.darkMode ? 'bg-gray-700' : 'bg-gray-800'} text-white rounded-lg shadow-lg ${
-          isRTL ? 'right-4' : 'left-4'
-        }`}
+        className={`lg:hidden fixed top-4 z-50 p-2 ${gymSettings.darkMode ? 'bg-gray-700' : 'bg-gray-800'} text-white rounded-lg shadow-lg left-4`}
         onClick={onToggle}
       >
         {isOpen ? <X size={20} /> : <Menu size={20} />}
@@ -83,12 +79,10 @@ export const Navigation: React.FC<NavigationProps> = ({
       {/* Sidebar */}
       <div className={`
         fixed lg:static inset-y-0 z-40 w-64 ${gymSettings.darkMode ? 'bg-gray-900' : 'bg-gray-800'} text-white transition-transform duration-300 ease-in-out overflow-y-auto
-        ${isRTL ? 'right-0' : 'left-0'}
+        left-0
         ${isOpen 
           ? 'transform translate-x-0' 
-          : isRTL 
-            ? 'transform translate-x-full lg:translate-x-0' 
-            : 'transform -translate-x-full lg:translate-x-0'
+          : 'transform -translate-x-full lg:translate-x-0'
         }
       `}>
         <div className={`p-6 border-b ${gymSettings.darkMode ? 'border-gray-700' : 'border-gray-700'}`}>
@@ -146,10 +140,9 @@ export const Navigation: React.FC<NavigationProps> = ({
                 className={`
                   w-full flex items-center px-6 py-3 text-left ${gymSettings.darkMode ? 'hover:bg-gray-800' : 'hover:bg-gray-700'} transition-colors
                   ${activeTab === item.id ? 'bg-orange-600 hover:bg-orange-700' : ''}
-                  ${isRTL ? 'flex-row-reverse text-right' : ''}
                 `}
               >
-                <Icon size={20} className={isRTL ? 'ml-3' : 'mr-3'} />
+                <Icon size={20} className="mr-3" />
                 {item.label}
               </button>
             );

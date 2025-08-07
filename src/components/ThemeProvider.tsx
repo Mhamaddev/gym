@@ -20,8 +20,8 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ settings, children
     // Create CSS custom properties for the theme color
     const root = document.documentElement;
     const themeColor = settings.themeColor || '#F97316';
-    const isRTL = settings.language === 'ar' || settings.language === 'ku';
-    document.body.setAttribute('dir', isRTL ? 'rtl' : 'ltr');
+    // Always use LTR direction for all languages
+    document.body.setAttribute('dir', 'ltr');
     
     // Convert hex to RGB for various opacity levels
     const hexToRgb = (hex: string) => {
