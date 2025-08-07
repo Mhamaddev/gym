@@ -70,7 +70,7 @@ export const Navigation: React.FC<NavigationProps> = ({
     <>
       {/* Mobile menu button */}
       <button
-        className={`lg:hidden fixed top-4 z-50 p-2 ${gymSettings.darkMode ? 'bg-gray-700' : 'bg-gray-800'} text-white rounded-lg shadow-lg left-4`}
+        className={`lg:hidden fixed top-4 z-50 p-2 ${gymSettings.darkMode ? 'bg-gray-700' : 'bg-gray-800'} text-white rounded-lg shadow-lg left-4 rtl:left-auto rtl:right-4`}
         onClick={onToggle}
       >
         {isOpen ? <X size={20} /> : <Menu size={20} />}
@@ -79,10 +79,10 @@ export const Navigation: React.FC<NavigationProps> = ({
       {/* Sidebar */}
       <div className={`
         fixed lg:static inset-y-0 z-40 w-64 ${gymSettings.darkMode ? 'bg-gray-900' : 'bg-gray-800'} text-white transition-transform duration-300 ease-in-out overflow-y-auto
-        left-0
+        left-0 rtl:left-auto rtl:right-0
         ${isOpen 
           ? 'transform translate-x-0' 
-          : 'transform -translate-x-full lg:translate-x-0'
+          : 'transform -translate-x-full lg:translate-x-0 rtl:translate-x-full rtl:-translate-x-full'
         }
       `}>
         <div className={`p-6 border-b ${gymSettings.darkMode ? 'border-gray-700' : 'border-gray-700'}`}>

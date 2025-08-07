@@ -99,6 +99,14 @@ function App() {
     preselectedPlayerName?: string;
   }>({});
 
+  // Force LTR direction on app initialization
+  React.useEffect(() => {
+    document.documentElement.setAttribute('dir', 'ltr');
+    document.body.setAttribute('dir', 'ltr');
+    document.documentElement.style.direction = 'ltr';
+    document.body.style.direction = 'ltr';
+  }, []);
+
   const [exercises, setExercises] = useLocalStorage<Exercise[]>('gym-exercises', sampleExercises);
   const [players, setPlayers] = useLocalStorage<Player[]>('gym-players', []);
   const [workoutPlans, setWorkoutPlans] = useLocalStorage<WorkoutPlan[]>('gym-workout-plans', []);
@@ -111,6 +119,14 @@ function App() {
     document.documentElement.setAttribute('dir', 'ltr');
     document.documentElement.setAttribute('lang', gymSettings.language);
     document.body.setAttribute('dir', 'ltr');
+    
+    // Force LTR on all elements
+    const allElements = document.querySelectorAll('*');
+    allElements.forEach(el => {
+      if (el instanceof HTMLElement) {
+        el.style.direction = 'ltr';
+      }
+    });
     
     // Change i18n language if different
     if (i18n.language !== gymSettings.language) {

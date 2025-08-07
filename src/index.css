@@ -90,6 +90,42 @@ html, body {
   direction: ltr !important;
 }
 
+/* Override any RTL styles that might be applied */
+html[dir="rtl"], body[dir="rtl"] {
+  direction: ltr !important;
+}
+
+/* Force LTR for all elements */
+* {
+  direction: ltr !important;
+}
+
+/* Override RTL positioning */
+[dir="rtl"] .left-4 {
+  left: 1rem !important;
+  right: auto !important;
+}
+
+[dir="rtl"] .right-4 {
+  right: 1rem !important;
+  left: auto !important;
+}
+
+/* Force sidebar to always be on the left */
+[dir="rtl"] .fixed.left-0 {
+  left: 0 !important;
+  right: auto !important;
+}
+
+/* Force transform directions */
+[dir="rtl"] .-translate-x-full {
+  transform: translateX(-100%) !important;
+}
+
+[dir="rtl"] .translate-x-0 {
+  transform: translateX(0) !important;
+}
+
 /* Theme color CSS variables */
 :root {
   --theme-color: #F97316;
@@ -229,6 +265,33 @@ html[lang="ku"] {
 html[lang="en"] {
   font-family: 'Noto Sans', sans-serif;
   direction: ltr !important;
+}
+
+/* Additional overrides for Vercel deployment */
+html[dir="rtl"] {
+  direction: ltr !important;
+}
+
+body[dir="rtl"] {
+  direction: ltr !important;
+}
+
+/* Force all elements to be LTR */
+[dir="rtl"] * {
+  direction: ltr !important;
+}
+
+/* Override any RTL text alignment */
+[dir="rtl"] .text-right {
+  text-align: right !important;
+}
+
+[dir="rtl"] .text-left {
+  text-align: left !important;
+}
+
+[dir="rtl"] .text-center {
+  text-align: center !important;
 }
 
 /* Apply theme colors to common elements */
