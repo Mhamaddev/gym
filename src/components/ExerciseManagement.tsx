@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Plus, Filter, Search } from 'lucide-react';
 import { Exercise, Category } from '../types';
+import { useTranslation } from 'react-i18next';
 
 interface ExerciseManagementProps {
   exercises: Exercise[];
@@ -9,6 +10,7 @@ interface ExerciseManagementProps {
 }
 
 export const ExerciseManagement: React.FC<ExerciseManagementProps> = ({ exercises, categories, onAddExercise }) => {
+  const { t } = useTranslation();
   const [showAddForm, setShowAddForm] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [searchTerm, setSearchTerm] = useState('');
@@ -38,15 +40,15 @@ export const ExerciseManagement: React.FC<ExerciseManagementProps> = ({ exercise
       <div className="mb-8">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Exercise Management</h1>
-            <p className="text-gray-600">Manage and categorize your gym exercises.</p>
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">{t('exerciseManagement')}</h1>
+            <p className="text-gray-600">{t('manageAndCategorize')}</p>
           </div>
           <button
             onClick={() => setShowAddForm(true)}
             className="flex items-center px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors w-full sm:w-auto justify-center"
           >
             <Plus size={20} className="mr-2" />
-            Add Exercise
+            {t('addExercise')}
           </button>
         </div>
       </div>
@@ -59,7 +61,7 @@ export const ExerciseManagement: React.FC<ExerciseManagementProps> = ({ exercise
               <Search size={20} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
               <input
                 type="text"
-                placeholder="Search exercises..."
+                placeholder={t('searchExercises')}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
@@ -73,7 +75,7 @@ export const ExerciseManagement: React.FC<ExerciseManagementProps> = ({ exercise
               onChange={(e) => setSelectedCategory(e.target.value)}
               className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
             >
-              <option value="all">All Categories</option>
+              <option value="all">{t('allCategories')}</option>
               {categories.map(category => (
                 <option key={category.id} value={category.name} className="capitalize">
                   {category.name}
@@ -113,8 +115,8 @@ export const ExerciseManagement: React.FC<ExerciseManagementProps> = ({ exercise
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 sm:p-12 text-center">
           <p className="text-gray-500">
             {categories.length === 0 
-              ? 'Please create some categories first before adding exercises.' 
-              : 'No exercises found matching your criteria.'
+              ? t('createCategoriesFirst')
+              : t('noExercisesFound')
             }
           </p>
         </div>
@@ -124,11 +126,11 @@ export const ExerciseManagement: React.FC<ExerciseManagementProps> = ({ exercise
       {showAddForm && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 overflow-y-auto">
           <div className="bg-white rounded-xl max-w-md w-full p-4 sm:p-6 my-8">
-            <h2 className="text-xl font-semibold mb-4">Add New Exercise</h2>
+            <h2 className="text-xl font-semibold mb-4">{t('addNewExercise')}</h2>
             <form onSubmit={handleAddExercise}>
               <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Exercise Name
+                  {t('exerciseName')}
                 </label>
                 <input
                   type="text"
@@ -140,7 +142,7 @@ export const ExerciseManagement: React.FC<ExerciseManagementProps> = ({ exercise
               </div>
               <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Category
+                  {t('category')}
                 </label>
                 <select
                   value={newExercise.category}
@@ -149,7 +151,7 @@ export const ExerciseManagement: React.FC<ExerciseManagementProps> = ({ exercise
                   required
                 >
                   {categories.length === 0 && (
-                    <option value="">No categories available</option>
+                    <option value="">{t('noCategoriesAvailable')}</option>
                   )}
                   {categories.map(category => (
                     <option key={category.id} value={category.name} className="capitalize">
@@ -160,7 +162,7 @@ export const ExerciseManagement: React.FC<ExerciseManagementProps> = ({ exercise
               </div>
               <div className="mb-6">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Description (Optional)
+                  {t('descriptionOptional')}
                 </label>
                 <textarea
                   value={newExercise.description}
@@ -175,14 +177,14 @@ export const ExerciseManagement: React.FC<ExerciseManagementProps> = ({ exercise
                   onClick={() => setShowAddForm(false)}
                   className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
                 >
-                  Cancel
+                  {t('cancel')}
                 </button>
                 <button
                   type="submit"
                   disabled={categories.length === 0}
                   className="flex-1 px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors"
                 >
-                  Add Exercise
+                  {t('addExercise')}
                 </button>
               </div>
             </form>

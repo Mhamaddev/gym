@@ -108,7 +108,7 @@ export const Settings: React.FC<SettingsProps> = ({ settings, onSave }) => {
                 type="text"
                 value={formData.location}
                 onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                placeholder="City, Country"
+                placeholder={t('locationPlaceholder')}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                 required
               />
@@ -199,7 +199,7 @@ export const Settings: React.FC<SettingsProps> = ({ settings, onSave }) => {
                   ...formData, 
                   socialMedia: { ...formData.socialMedia, facebook: e.target.value }
                 })}
-                placeholder="https://facebook.com/yourgym"
+                placeholder={t('facebookURLPlaceholder')}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
               />
             </div>
@@ -216,7 +216,7 @@ export const Settings: React.FC<SettingsProps> = ({ settings, onSave }) => {
                   ...formData, 
                   socialMedia: { ...formData.socialMedia, instagram: e.target.value }
                 })}
-                placeholder="https://instagram.com/yourgym"
+                placeholder={t('instagramURLPlaceholder')}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
               />
             </div>
@@ -233,7 +233,7 @@ export const Settings: React.FC<SettingsProps> = ({ settings, onSave }) => {
                   ...formData, 
                   socialMedia: { ...formData.socialMedia, twitter: e.target.value }
                 })}
-                placeholder="https://twitter.com/yourgym"
+                placeholder={t('twitterURLPlaceholder')}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
               />
             </div>
@@ -298,7 +298,7 @@ export const Settings: React.FC<SettingsProps> = ({ settings, onSave }) => {
 
           <div className="mb-6">
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Theme Mode
+              {t('themeMode')}
             </label>
             <div className="flex items-center gap-4">
               <button
@@ -311,7 +311,7 @@ export const Settings: React.FC<SettingsProps> = ({ settings, onSave }) => {
                 }`}
               >
                 <Sun size={16} />
-                <span className="text-sm font-medium text-gray-700">Light Mode</span>
+                <span className="text-sm font-medium text-gray-700">{t('lightMode')}</span>
               </button>
               <button
                 type="button"
@@ -323,11 +323,11 @@ export const Settings: React.FC<SettingsProps> = ({ settings, onSave }) => {
                 }`}
               >
                 <Moon size={16} />
-                <span className="text-sm font-medium text-gray-700">Dark Mode</span>
+                <span className="text-sm font-medium text-gray-700">{t('darkMode')}</span>
               </button>
             </div>
             <p className="text-sm text-gray-500 mt-2">
-              Choose between light and dark theme for the application.
+              {t('chooseThemeMode')}
             </p>
           </div>
 

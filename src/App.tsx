@@ -301,7 +301,7 @@ function App() {
             onToggle={handleNavToggle}
           />
           
-          <main className={`flex-1 min-h-screen lg:ml-64 pt-16 lg:pt-0`}>
+          <main className={`flex-1 min-h-screen  pt-16 lg:pt-0`}>
             {renderActiveTab()}
           </main>
         </div>

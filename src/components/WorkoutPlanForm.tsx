@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { X, Check, Calendar, User, Plus, Minus, Dumbbell } from 'lucide-react';
 import { Exercise, Player, Category, ExerciseWithSets, CategoryWithDays } from '../types';
+import { useTranslation } from 'react-i18next';
 
 interface WorkoutPlanFormProps {
   exercises: Exercise[];
@@ -31,6 +32,7 @@ export const WorkoutPlanForm: React.FC<WorkoutPlanFormProps> = ({
   onSubmit, 
   onClose 
 }) => {
+  const { t } = useTranslation();
   const [selectedPlayerId, setSelectedPlayerId] = useState(preselectedPlayerId || '');
   const [selectedCategories, setSelectedCategories] = useState<CategoryWithDays[]>([]);
   const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
@@ -105,11 +107,10 @@ export const WorkoutPlanForm: React.FC<WorkoutPlanFormProps> = ({
 
   const updateExerciseInCategory = (categoryIndex: number, exerciseIndex: number, field: keyof ExerciseWithSets, value: any) => {
     const updated = [...selectedCategories];
-    if (field === 'exercise') {
-      updated[categoryIndex].exercises[exerciseIndex].exercise = value;
-    } else {
-      (updated[categoryIndex].exercises[exerciseIndex] as any)[field] = value;
-    }
+    updated[categoryIndex].exercises[exerciseIndex] = {
+      ...updated[categoryIndex].exercises[exerciseIndex],
+      [field]: value
+    };
     setSelectedCategories(updated);
   };
 
@@ -142,7 +143,7 @@ export const WorkoutPlanForm: React.FC<WorkoutPlanFormProps> = ({
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-xl max-w-6xl w-full max-h-[90vh] overflow-hidden flex flex-col">
         <div className="flex items-center justify-between p-6 border-b">
-          <h2 className="text-xl font-semibold text-gray-900">Create Workout Plan</h2>
+          <h2 className="text-xl font-semibold text-gray-900">{t('createWorkoutPlan')}</h2>
           <button
             onClick={onClose}
             className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
@@ -158,7 +159,7 @@ export const WorkoutPlanForm: React.FC<WorkoutPlanFormProps> = ({
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   <User size={16} className="inline mr-1" />
-                  Player *
+                  {t('player')} *
                 </label>
                 {preselectedPlayerId ? (
                   <div className="p-3 bg-orange-50 border border-orange-200 rounded-lg">
@@ -172,7 +173,7 @@ export const WorkoutPlanForm: React.FC<WorkoutPlanFormProps> = ({
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                     required
                   >
-                    <option value="">Select a player</option>
+                    <option value="">{t('selectPlayer_')}</option>
                     {players.map(player => (
                       <option key={player.id} value={player.id}>
                         {player.fullName} (ID: {player.id})
@@ -186,7 +187,7 @@ export const WorkoutPlanForm: React.FC<WorkoutPlanFormProps> = ({
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   <Calendar size={16} className="inline mr-1" />
-                  Date *
+                  {t('date')} *
                 </label>
                 <input
                   type="date"
@@ -202,7 +203,7 @@ export const WorkoutPlanForm: React.FC<WorkoutPlanFormProps> = ({
             <div className="mb-6">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-medium text-gray-900">
-                  Workout Categories ({getTotalExercises()} total exercises)
+                  {t('workoutCategories')} ({getTotalExercises()} {t('totalExercisesForm')})
                 </h3>
                 <button
                   type="button"
@@ -211,7 +212,7 @@ export const WorkoutPlanForm: React.FC<WorkoutPlanFormProps> = ({
                   className="flex items-center gap-2 px-3 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm"
                 >
                   <Plus size={16} />
-                  Add Category
+                  {t('addCategory')}
                 </button>
               </div>
 
@@ -257,7 +258,7 @@ export const WorkoutPlanForm: React.FC<WorkoutPlanFormProps> = ({
                       {/* Days Selection */}
                       <div className="mb-4">
                         <label className="block text-sm font-medium text-gray-700 mb-2">
-                          Training Days *
+                          {t('trainingDays')} *
                         </label>
                         <div className="flex flex-wrap gap-2">
                           {daysOfWeek.map(day => (
@@ -281,7 +282,7 @@ export const WorkoutPlanForm: React.FC<WorkoutPlanFormProps> = ({
                       <div>
                         <div className="flex items-center justify-between mb-3">
                           <label className="text-sm font-medium text-gray-700">
-                            Exercises ({categoryData.exercises.length})
+                            {t('exercises')} ({categoryData.exercises.length})
                           </label>
                           <button
                             type="button"
@@ -290,7 +291,7 @@ export const WorkoutPlanForm: React.FC<WorkoutPlanFormProps> = ({
                             className="flex items-center gap-1 px-2 py-1 bg-green-600 text-white text-xs rounded hover:bg-green-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                           >
                             <Plus size={12} />
-                            Add Exercise
+                            {t('addExercise')}
                           </button>
                         </div>
 
@@ -299,7 +300,7 @@ export const WorkoutPlanForm: React.FC<WorkoutPlanFormProps> = ({
                             <div key={exerciseIndex} className="bg-gray-50 rounded-lg p-3">
                               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 mb-3">
                                 <div>
-                                  <label className="block text-xs font-medium text-gray-600 mb-1">Exercise</label>
+                                  <label className="block text-xs font-medium text-gray-600 mb-1">{t('exercise')}</label>
                                   <select
                                     value={exerciseData.exercise.id}
                                     onChange={(e) => {
@@ -319,7 +320,7 @@ export const WorkoutPlanForm: React.FC<WorkoutPlanFormProps> = ({
                                 </div>
 
                                 <div>
-                                  <label className="block text-xs font-medium text-gray-600 mb-1">Sets</label>
+                                  <label className="block text-xs font-medium text-gray-600 mb-1">{t('sets')}</label>
                                   <input
                                     type="number"
                                     min="1"
@@ -331,7 +332,7 @@ export const WorkoutPlanForm: React.FC<WorkoutPlanFormProps> = ({
                                 </div>
 
                                 <div>
-                                  <label className="block text-xs font-medium text-gray-600 mb-1">Reps</label>
+                                  <label className="block text-xs font-medium text-gray-600 mb-1">{t('reps')}</label>
                                   <input
                                     type="text"
                                     value={exerciseData.reps || ''}
@@ -342,7 +343,7 @@ export const WorkoutPlanForm: React.FC<WorkoutPlanFormProps> = ({
                                 </div>
 
                                 <div>
-                                  <label className="block text-xs font-medium text-gray-600 mb-1">Weight</label>
+                                  <label className="block text-xs font-medium text-gray-600 mb-1">{t('weight')}</label>
                                   <input
                                     type="text"
                                     value={exerciseData.weight || ''}
@@ -355,12 +356,12 @@ export const WorkoutPlanForm: React.FC<WorkoutPlanFormProps> = ({
 
                               <div className="flex items-start gap-3">
                                 <div className="flex-1">
-                                  <label className="block text-xs font-medium text-gray-600 mb-1">Exercise Notes</label>
+                                  <label className="block text-xs font-medium text-gray-600 mb-1">{t('exerciseNotes')}</label>
                                   <input
                                     type="text"
                                     value={exerciseData.notes || ''}
                                     onChange={(e) => updateExerciseInCategory(categoryIndex, exerciseIndex, 'notes', e.target.value)}
-                                    placeholder="Additional notes for this exercise..."
+                                    placeholder={t('additionalNotesForExercise')}
                                     className="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-orange-500 focus:border-transparent"
                                   />
                                 </div>
@@ -378,7 +379,7 @@ export const WorkoutPlanForm: React.FC<WorkoutPlanFormProps> = ({
                           {categoryData.exercises.length === 0 && (
                             <div className="text-center py-4 text-gray-500 text-sm">
                               <Dumbbell size={24} className="mx-auto mb-2 text-gray-300" />
-                              No exercises added yet. Click "Add Exercise" to get started.
+                              {t('noExercisesAddedYet')}
                             </div>
                           )}
                         </div>
@@ -392,13 +393,13 @@ export const WorkoutPlanForm: React.FC<WorkoutPlanFormProps> = ({
                     <div className="mb-4">
                       <Dumbbell size={48} className="mx-auto text-gray-300" />
                     </div>
-                    <p className="mb-2">No categories added yet.</p>
+                    <p className="mb-2">{t('noCategoriesAddedYet')}</p>
                     <button
                       type="button"
                       onClick={addCategory}
                       className="text-orange-600 hover:text-orange-700 font-medium"
                     >
-                      Add your first category
+                      {t('addYourFirstCategory')}
                     </button>
                   </div>
                 )}
@@ -408,12 +409,12 @@ export const WorkoutPlanForm: React.FC<WorkoutPlanFormProps> = ({
             {/* Notes */}
             <div className="mb-6">
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Notes (Optional)
+                {t('notesOptional')}
               </label>
               <textarea
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
-                placeholder="Add any additional notes for this workout plan..."
+                placeholder={t('addNotes')}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                 rows={3}
               />
@@ -425,14 +426,14 @@ export const WorkoutPlanForm: React.FC<WorkoutPlanFormProps> = ({
                 onClick={onClose}
                 className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
               >
-                Cancel
+                {t('cancel')}
               </button>
               <button
                 type="submit"
                 disabled={!selectedPlayerId || !playerName || selectedCategories.length === 0 || getTotalExercises() === 0}
                 className="flex-1 px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Create Plan ({getTotalExercises()} exercises)
+                {t('createPlan_', { count: getTotalExercises() })}
               </button>
             </div>
           </form>

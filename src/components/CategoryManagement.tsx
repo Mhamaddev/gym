@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Plus, Edit2, Trash2, Tag, Palette } from 'lucide-react';
 import { Category, Exercise } from '../types';
+import { useTranslation } from 'react-i18next';
 
 interface CategoryManagementProps {
   categories: Category[];
@@ -22,6 +23,7 @@ export const CategoryManagement: React.FC<CategoryManagementProps> = ({
   onEditCategory,
   onDeleteCategory
 }) => {
+  const { t } = useTranslation();
   const [showAddForm, setShowAddForm] = useState(false);
   const [editingCategory, setEditingCategory] = useState<Category | null>(null);
   const [newCategory, setNewCategory] = useState({
@@ -64,11 +66,11 @@ export const CategoryManagement: React.FC<CategoryManagementProps> = ({
   const handleDelete = (category: Category) => {
     const exerciseCount = getCategoryExerciseCount(category.name);
     if (exerciseCount > 0) {
-      if (confirm(`This category has ${exerciseCount} exercises. Are you sure you want to delete it? The exercises will need to be recategorized.`)) {
+      if (confirm(t('deleteConfirm', { count: exerciseCount }))) {
         onDeleteCategory(category.id);
       }
     } else {
-      if (confirm(`Are you sure you want to delete the "${category.name}" category?`)) {
+      if (confirm(t('deleteConfirmEmpty', { name: category.name }))) {
         onDeleteCategory(category.id);
       }
     }
@@ -85,15 +87,15 @@ export const CategoryManagement: React.FC<CategoryManagementProps> = ({
       <div className="mb-8">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Category Management</h1>
-            <p className="text-gray-600">Create and manage exercise categories for better organization.</p>
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">{t('categoryManagement')}</h1>
+            <p className="text-gray-600">{t('createAndManage')}</p>
           </div>
           <button
             onClick={() => setShowAddForm(true)}
             className="flex items-center px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors w-full sm:w-auto justify-center"
           >
             <Plus size={20} className="mr-2" />
-            Add Category
+            {t('addCategory')}
           </button>
         </div>
       </div>
@@ -116,14 +118,14 @@ export const CategoryManagement: React.FC<CategoryManagementProps> = ({
                   <button
                     onClick={() => startEdit(category)}
                     className="p-1 text-gray-400 hover:text-blue-600 transition-colors"
-                    title="Edit category"
+                    title={t('edit')}
                   >
                     <Edit2 size={16} />
                   </button>
                   <button
                     onClick={() => handleDelete(category)}
                     className="p-1 text-gray-400 hover:text-red-600 transition-colors"
-                    title="Delete category"
+                    title={t('delete')}
                   >
                     <Trash2 size={16} />
                   </button>
@@ -132,7 +134,7 @@ export const CategoryManagement: React.FC<CategoryManagementProps> = ({
               
               <div className="mb-3">
                 <span className="inline-flex items-center px-2 py-1 bg-gray-100 text-gray-700 text-sm rounded-full">
-                  {exerciseCount} exercise{exerciseCount !== 1 ? 's' : ''}
+                  {t('exercises_count', { count: exerciseCount })}
                 </span>
               </div>
               
@@ -146,12 +148,12 @@ export const CategoryManagement: React.FC<CategoryManagementProps> = ({
         {categories.length === 0 && (
           <div className="col-span-full bg-white rounded-xl shadow-sm border border-gray-200 p-8 sm:p-12 text-center">
             <Tag size={48} className="mx-auto text-gray-300 mb-4" />
-            <p className="text-gray-500 mb-4">No categories created yet.</p>
+            <p className="text-gray-500 mb-4">{t('noCategoriesCreated')}</p>
             <button
               onClick={() => setShowAddForm(true)}
               className="text-orange-600 hover:text-orange-700 font-medium"
             >
-              Create your first category
+              {t('createFirstCategory')}
             </button>
           </div>
         )}
@@ -162,19 +164,19 @@ export const CategoryManagement: React.FC<CategoryManagementProps> = ({
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 overflow-y-auto">
           <div className="bg-white rounded-xl max-w-md w-full p-4 sm:p-6 my-8">
             <h2 className="text-xl font-semibold mb-4">
-              {editingCategory ? 'Edit Category' : 'Add New Category'}
+              {editingCategory ? t('editCategory') : t('addNewCategory')}
             </h2>
             <form onSubmit={editingCategory ? handleEditCategory : handleAddCategory}>
               <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Category Name *
+                  {t('categoryName')} *
                 </label>
                 <input
                   type="text"
                   value={newCategory.name}
                   onChange={(e) => setNewCategory({ ...newCategory, name: e.target.value })}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-                  placeholder="e.g., Chest, Legs, Cardio"
+                  placeholder={t('categoryNamePlaceholder')}
                   required
                 />
               </div>
@@ -182,7 +184,7 @@ export const CategoryManagement: React.FC<CategoryManagementProps> = ({
               <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   <Palette size={16} className="inline mr-1" />
-                  Color
+                  {t('color')}
                 </label>
                 <div className="grid grid-cols-5 gap-2">
                   {predefinedColors.map((color) => (
@@ -203,14 +205,14 @@ export const CategoryManagement: React.FC<CategoryManagementProps> = ({
               
               <div className="mb-6">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Description (Optional)
+                  {t('descriptionOptional')}
                 </label>
                 <textarea
                   value={newCategory.description}
                   onChange={(e) => setNewCategory({ ...newCategory, description: e.target.value })}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                   rows={3}
-                  placeholder="Brief description of this category..."
+                  placeholder={t('categoryDescriptionPlaceholder')}
                 />
               </div>
               
@@ -220,13 +222,13 @@ export const CategoryManagement: React.FC<CategoryManagementProps> = ({
                   onClick={cancelEdit}
                   className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
                 >
-                  Cancel
+                  {t('cancel')}
                 </button>
                 <button
                   type="submit"
                   className="flex-1 px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors"
                 >
-                  {editingCategory ? 'Update Category' : 'Add Category'}
+                  {editingCategory ? t('updateCategory') : t('addCategory')}
                 </button>
               </div>
             </form>

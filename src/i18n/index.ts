@@ -77,6 +77,7 @@ const resources = {
       createPlan: 'Create Plan',
       plans_count: '{{count}} plan',
       plans_count_plural: '{{count}} plans',
+      noPlayersFound: 'No players found.',
       
       // Workout Plans
       allPlans: 'All Plans',
@@ -86,6 +87,7 @@ const resources = {
       generating: 'Generating...',
       notes: 'Notes',
       createFirstPlan: 'Create your first plan',
+      manageAndViewAllPlans: 'Manage and view all workout plans.',
       
       // Workout Plan Form
       createWorkoutPlan: 'Create Workout Plan',
@@ -96,6 +98,15 @@ const resources = {
       notesOptional: 'Notes (Optional)',
       addNotes: 'Add any additional notes for this workout plan...',
       createPlan_: 'Create Plan ({{count}} exercises)',
+      workoutCategories: 'Workout Categories',
+      totalExercisesForm: 'total exercises',
+      trainingDays: 'Training Days',
+      exercise: 'Exercise',
+      exerciseNotes: 'Exercise Notes',
+      additionalNotesForExercise: 'Additional notes for this exercise...',
+      noExercisesAddedYet: 'No exercises added yet. Click "Add Exercise" to get started.',
+      noCategoriesAddedYet: 'No categories added yet.',
+      addYourFirstCategory: 'Add your first category',
       
       // Settings
       customizeGym: 'Customize your gym\'s information and branding.',
@@ -122,6 +133,18 @@ const resources = {
       saving: 'Saving...',
       settingsSaved: 'Settings saved successfully!',
       settingsError: 'Failed to save settings. Please try again.',
+      themeMode: 'Theme Mode',
+      lightMode: 'Light Mode',
+      darkMode: 'Dark Mode',
+      chooseThemeMode: 'Choose between light and dark theme for the application.',
+      categoryNamePlaceholder: 'e.g., Chest, Legs, Cardio',
+      categoryDescriptionPlaceholder: 'Brief description of this category...',
+      locationPlaceholder: 'City, Country',
+      facebookURLPlaceholder: 'https://facebook.com/yourgym',
+      instagramURLPlaceholder: 'https://instagram.com/yourgym',
+      twitterURLPlaceholder: 'https://twitter.com/yourgym',
+      switchToLightMode: 'Switch to Light Mode',
+      switchToDarkMode: 'Switch to Dark Mode',
       
       // PDF
       workoutPlan: 'Workout Plan',
@@ -217,6 +240,7 @@ const resources = {
       createPlan: 'إنشاء خطة',
       plans_count: '{{count}} خطة',
       plans_count_plural: '{{count}} خطة',
+      noPlayersFound: 'لم يتم العثور على لاعبين.',
       
       // Workout Plans
       allPlans: 'جميع الخطط',
@@ -226,6 +250,7 @@ const resources = {
       generating: 'جاري الإنشاء...',
       notes: 'الملاحظات',
       createFirstPlan: 'إنشاء خطتك الأولى',
+      manageAndViewAllPlans: 'إدارة وعرض جميع خطط التمرين.',
       
       // Workout Plan Form
       createWorkoutPlan: 'إنشاء خطة تمرين',
@@ -236,6 +261,15 @@ const resources = {
       notesOptional: 'الملاحظات (اختياري)',
       addNotes: 'أضف أي ملاحظات إضافية لخطة التمرين هذه...',
       createPlan_: 'إنشاء خطة ({{count}} تمرين)',
+      workoutCategories: 'فئات التمارين',
+      totalExercisesForm: 'إجمالي التمارين',
+      trainingDays: 'أيام التدريب',
+      exercise: 'التمرين',
+      exerciseNotes: 'ملاحظات التمرين',
+      additionalNotesForExercise: 'ملاحظات إضافية لهذا التمرين...',
+      noExercisesAddedYet: 'لم يتم إضافة أي تمارين بعد. اضغط على "إضافة تمرين" للبدء.',
+      noCategoriesAddedYet: 'لم يتم إضافة أي فئات بعد.',
+      addYourFirstCategory: 'إضافة فئتك الأولى',
       
       // Settings
       customizeGym: 'تخصيص معلومات وعلامة صالة الألعاب الرياضية الخاصة بك.',
@@ -246,7 +280,7 @@ const resources = {
       uploadLogo: 'رفع الشعار',
       contactInformation: 'معلومات الاتصال',
       socialMedia: 'وسائل التواصل الاجتماعي',
-      facebookURL: 'رابط فيسبوك',
+      facebookURL: 'رابط فيسبووك',
       instagramURL: 'رابط إنستغرام',
       twitterURL: 'رابط تويتر',
       customization: 'التخصيص',
@@ -262,6 +296,18 @@ const resources = {
       saving: 'جاري الحفظ...',
       settingsSaved: 'تم حفظ الإعدادات بنجاح!',
       settingsError: 'فشل في حفظ الإعدادات. يرجى المحاولة مرة أخرى.',
+      themeMode: 'وضع الموضوع',
+      lightMode: 'وضع ضوء',
+      darkMode: 'وضع ليل',
+      chooseThemeMode: 'اختر بين وضع ضوء أو وضع ليل للتطبيق.',
+      categoryNamePlaceholder: 'مثال: الصدر، الساقين، القلب',
+      categoryDescriptionPlaceholder: 'وصف مختصر لهذه الفئة...',
+      locationPlaceholder: 'المدينة، البلد',
+      facebookURLPlaceholder: 'https://facebook.com/yourgym',
+      instagramURLPlaceholder: 'https://instagram.com/yourgym',
+      twitterURLPlaceholder: 'https://twitter.com/yourgym',
+      switchToLightMode: 'تبديل إلى وضع ضوء',
+      switchToDarkMode: 'تبديل إلى وضع ليل',
       
       // PDF
       workoutPlan: 'خطة التمرين',
@@ -357,6 +403,7 @@ const resources = {
       createPlan: 'دروستکردنی پلان',
       plans_count: '{{count}} پلان',
       plans_count_plural: '{{count}} پلان',
+      noPlayersFound: 'هیچ یاریزانێک بەردەست نییە.',
       
       // Workout Plans
       allPlans: 'هەموو پلانەکان',
@@ -366,6 +413,7 @@ const resources = {
       generating: 'دروستکردن...',
       notes: 'تێبینییەکان',
       createFirstPlan: 'یەکەم پلانەکەت دروست بکە',
+      manageAndViewAllPlans: 'پلانەکانی ڕاهێنانەکان بەڕێوەبردن و ئەمە ئەوەیە کە لە گیمەکەتدا ڕوودەدات.',
       
       // Workout Plan Form
       createWorkoutPlan: 'دروستکردنی پلانی ڕاهێنان',
@@ -376,6 +424,15 @@ const resources = {
       notesOptional: 'تێبینییەکان (ئیختیاری)',
       addNotes: 'هەر تێبینییەکی زیادە بۆ ئەم پلانی ڕاهێنانە زیاد بکە...',
       createPlan_: 'دروستکردنی پلان ({{count}} ڕاهێنان)',
+      workoutCategories: 'پۆلەکانی ڕاهێنان',
+      totalExercisesForm: 'کۆی گشتی ڕاهێنانەکان',
+      trainingDays: 'ڕۆژەکانی ڕاهێنان',
+      exercise: 'ڕاهێنان',
+      exerciseNotes: 'تێبینییەکانی ڕاهێنان',
+      additionalNotesForExercise: 'تێبینییەکی زیادە بۆ ئەم ڕاهێنانە...',
+      noExercisesAddedYet: 'هێشتا هیچ ڕاهێنانێک زیاد نەکراوە. کلیک لەسەر "زیادکردنی ڕاهێنان" بۆ دەستپێکردن.',
+      noCategoriesAddedYet: 'هێشتا هیچ پۆلێک زیاد نەکراوە.',
+      addYourFirstCategory: 'یەکەم پۆلەکەت زیاد بکە',
       
       // Settings
       customizeGym: 'دەستکاریکردنی زانیاری و نیشانەی گیمەکەت.',
@@ -402,6 +459,18 @@ const resources = {
       saving: 'پاشەکەوتکردن...',
       settingsSaved: 'ڕێکخستنەکان بە سەرکەوتوویی پاشەکەوت کران!',
       settingsError: 'شکستی هێنا لە پاشەکەوتکردنی ڕێکخستنەکان. تکایە دووبارە هەوڵ بدەوە.',
+      themeMode: 'ڕەنگی گیم',
+      lightMode: 'ڕەنگی ڕووناک',
+      darkMode: 'ڕەنگی تاریک',
+      chooseThemeMode: 'هەڵبژاردنی نێوان ڕەنگی ڕووناک یان تاریک بۆ ئەپڵیکەیشنەکە.',
+      categoryNamePlaceholder: 'نموونە: سینگ، قاچ، دڵ',
+      categoryDescriptionPlaceholder: 'وەسفی کورتی ئەم پۆلە...',
+      locationPlaceholder: 'شار، وڵات',
+      facebookURLPlaceholder: 'https://facebook.com/yourgym',
+      instagramURLPlaceholder: 'https://instagram.com/yourgym',
+      twitterURLPlaceholder: 'https://twitter.com/yourgym',
+      switchToLightMode: 'گۆڕین بۆ ڕەنگی ڕووناک',
+      switchToDarkMode: 'گۆڕین بۆ ڕەنگی تاریک',
       
       // PDF
       workoutPlan: 'پلانی ڕاهێنان',

@@ -162,7 +162,7 @@ html[dir="rtl"], body[dir="rtl"] {
 }
 
 [dir="rtl"] .ml-64 {
-  margin-left: 16rem !important;
+  
   margin-right: 0 !important;
 }
 

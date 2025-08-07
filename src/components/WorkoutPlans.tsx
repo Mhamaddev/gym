@@ -3,6 +3,7 @@ import { Plus, Download, Calendar, User } from 'lucide-react';
 import { WorkoutPlan, Player, Exercise, GymSettings, CategoryWithDays } from '../types';
 import { format } from 'date-fns';
 import { generateWorkoutPlanPDF } from '../utils/pdfGenerator';
+import { useTranslation } from 'react-i18next';
 
 interface WorkoutPlansProps {
   workoutPlans: WorkoutPlan[];
@@ -19,6 +20,7 @@ export const WorkoutPlans: React.FC<WorkoutPlansProps> = ({
   gymSettings,
   onCreatePlan 
 }) => {
+  const { t } = useTranslation();
   const [selectedPlan, setSelectedPlan] = useState<WorkoutPlan | null>(null);
   const [isGeneratingPDF, setIsGeneratingPDF] = useState(false);
 
@@ -52,15 +54,15 @@ export const WorkoutPlans: React.FC<WorkoutPlansProps> = ({
       <div className="mb-8">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Workout Plans</h1>
-            <p className="text-gray-600">Manage and view all workout plans.</p>
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">{t('workoutPlans')}</h1>
+            <p className="text-gray-600">{t('manageAndViewAllPlans')}</p>
           </div>
           <button
             onClick={onCreatePlan}
             className="flex items-center px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors w-full sm:w-auto justify-center"
           >
             <Plus size={20} className="mr-2" />
-            Create Plan
+            {t('createPlan')}
           </button>
         </div>
       </div>
@@ -68,7 +70,7 @@ export const WorkoutPlans: React.FC<WorkoutPlansProps> = ({
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
         {/* Plans List */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 sm:p-6">
-          <h2 className="text-lg sm:text-xl font-semibold text-gray-900 mb-4">All Plans ({sortedPlans.length})</h2>
+          <h2 className="text-lg sm:text-xl font-semibold text-gray-900 mb-4">{t('allPlans')} ({sortedPlans.length})</h2>
           <div className="space-y-3 max-h-[600px] overflow-y-auto">
             {sortedPlans.map((plan) => (
               <div 
@@ -96,7 +98,7 @@ export const WorkoutPlans: React.FC<WorkoutPlansProps> = ({
                   </button>
                 </div>
                 <div className="flex items-center justify-between">
-                  <p className="text-sm text-gray-600">{getTotalExercises(plan)} exercises</p>
+                  <p className="text-sm text-gray-600">{t('exercises_count', { count: getTotalExercises(plan) })}</p>
                   <div className="flex items-center gap-1 text-xs text-gray-500">
                     <Calendar size={12} />
                     {format(new Date(plan.date), 'MMM dd, yyyy')}
@@ -106,12 +108,12 @@ export const WorkoutPlans: React.FC<WorkoutPlansProps> = ({
             ))}
             {sortedPlans.length === 0 && (
               <div className="text-center py-12">
-                <p className="text-gray-500">No workout plans created yet.</p>
+                <p className="text-gray-500">{t('noWorkoutPlans')}</p>
                 <button
                   onClick={onCreatePlan}
                   className="mt-2 text-orange-600 hover:text-orange-700 text-sm font-medium"
                 >
-                  Create your first plan
+                  {t('createFirstPlan')}
                 </button>
               </div>
             )}
@@ -126,7 +128,7 @@ export const WorkoutPlans: React.FC<WorkoutPlansProps> = ({
                 <div>
                   <h2 className="text-xl font-semibold text-gray-900">{selectedPlan.playerName}</h2>
                   <p className="text-gray-500">
-                    Created on {format(new Date(selectedPlan.date), 'MMMM dd, yyyy')}
+                    {t('createdOn')} {format(new Date(selectedPlan.date), 'MMMM dd, yyyy')}
                   </p>
                 </div>
                 <button
@@ -135,7 +137,7 @@ export const WorkoutPlans: React.FC<WorkoutPlansProps> = ({
                   className="flex items-center gap-2 px-3 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50 text-sm"
                 >
                   <Download size={16} />
-                  {isGeneratingPDF ? 'Generating...' : 'Download PDF'}
+                  {isGeneratingPDF ? t('generating') : t('downloadPDF')}
                 </button>
               </div>
 
@@ -149,13 +151,13 @@ export const WorkoutPlans: React.FC<WorkoutPlansProps> = ({
                           {categoryData.categoryName}
                         </h4>
                         <div className="text-xs text-gray-500">
-                          {categoryData.exercises.length} exercises
+                          {t('exercises_count', { count: categoryData.exercises.length })}
                         </div>
                       </div>
                       
                       <div className="mb-3">
                         <p className="text-sm text-gray-600">
-                          <strong>Days:</strong> {categoryData.days.join(', ')}
+                          <strong>{t('days')}:</strong> {categoryData.days.join(', ')}
                         </p>
                       </div>
 
@@ -167,16 +169,16 @@ export const WorkoutPlans: React.FC<WorkoutPlansProps> = ({
                                 {exerciseIndex + 1}. {exerciseData.exercise.name}
                               </h5>
                               <div className="text-right text-sm text-gray-600">
-                                <div><strong>Sets:</strong> {exerciseData.sets}</div>
-                                {exerciseData.reps && <div><strong>Reps:</strong> {exerciseData.reps}</div>}
-                                {exerciseData.weight && <div><strong>Weight:</strong> {exerciseData.weight}</div>}
+                                <div><strong>{t('sets')}:</strong> {exerciseData.sets}</div>
+                                {exerciseData.reps && <div><strong>{t('reps')}:</strong> {exerciseData.reps}</div>}
+                                {exerciseData.weight && <div><strong>{t('weight')}:</strong> {exerciseData.weight}</div>}
                               </div>
                             </div>
                             {exerciseData.exercise.description && (
                               <p className="text-sm text-gray-600 mb-1">{exerciseData.exercise.description}</p>
                             )}
                             {exerciseData.notes && (
-                              <p className="text-sm text-blue-600 italic">Note: {exerciseData.notes}</p>
+                              <p className="text-sm text-blue-600 italic">{t('note')}: {exerciseData.notes}</p>
                             )}
                           </div>
                         ))}
@@ -188,7 +190,7 @@ export const WorkoutPlans: React.FC<WorkoutPlansProps> = ({
 
               {selectedPlan.notes && (
                 <div>
-                  <h3 className="text-lg font-medium text-gray-900 mb-3">Notes</h3>
+                  <h3 className="text-lg font-medium text-gray-900 mb-3">{t('notes')}</h3>
                   <div className="p-3 bg-gray-50 rounded-lg">
                     <p className="text-gray-700">{selectedPlan.notes}</p>
                   </div>
@@ -198,7 +200,7 @@ export const WorkoutPlans: React.FC<WorkoutPlansProps> = ({
           ) : (
             <div className="text-center py-12">
               <Calendar size={48} className="mx-auto text-gray-300 mb-4" />
-              <p className="text-gray-500">Select a workout plan to view details</p>
+              <p className="text-gray-500">{t('selectWorkoutPlan')}</p>
             </div>
           )}
         </div>

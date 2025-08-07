@@ -99,7 +99,7 @@ export const Navigation: React.FC<NavigationProps> = ({
             <button
               onClick={toggleDarkMode}
               className="p-2 rounded-lg hover:bg-gray-700 transition-colors"
-              title={gymSettings.darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+              title={gymSettings.darkMode ? t('switchToLightMode') : t('switchToDarkMode')}
             >
               {gymSettings.darkMode ? <Sun size={16} /> : <Moon size={16} />}
             </button>

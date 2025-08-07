@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Plus, Search, User, Calendar, FileText } from 'lucide-react';
 import { Player, WorkoutPlan } from '../types';
 import { format } from 'date-fns';
+import { useTranslation } from 'react-i18next';
 
 interface PlayerManagementProps {
   players: Player[];
@@ -16,6 +17,7 @@ export const PlayerManagement: React.FC<PlayerManagementProps> = ({
   onAddPlayer,
   onCreatePlan
 }) => {
+  const { t } = useTranslation();
   const [showAddForm, setShowAddForm] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedPlayer, setSelectedPlayer] = useState<Player | null>(null);
@@ -49,15 +51,15 @@ export const PlayerManagement: React.FC<PlayerManagementProps> = ({
       <div className="mb-8">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Player Management</h1>
-            <p className="text-gray-600">Manage gym members and their workout history.</p>
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">{t('playerManagement')}</h1>
+            <p className="text-gray-600">{t('manageGymMembers')}</p>
           </div>
           <button
             onClick={() => setShowAddForm(true)}
             className="flex items-center px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors w-full sm:w-auto justify-center"
           >
             <Plus size={20} className="mr-2" />
-            Add Player
+            {t('addPlayer')}
           </button>
         </div>
       </div>
@@ -68,7 +70,7 @@ export const PlayerManagement: React.FC<PlayerManagementProps> = ({
           <Search size={20} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
           <input
             type="text"
-            placeholder="Search players by name or ID..."
+            placeholder={t('searchPlayers')}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
@@ -79,7 +81,7 @@ export const PlayerManagement: React.FC<PlayerManagementProps> = ({
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
         {/* Players List */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 sm:p-6">
-          <h2 className="text-lg sm:text-xl font-semibold text-gray-900 mb-4">Players ({filteredPlayers.length})</h2>
+          <h2 className="text-lg sm:text-xl font-semibold text-gray-900 mb-4">{t('players')} ({filteredPlayers.length})</h2>
           <div className="space-y-3 max-h-96 overflow-y-auto">
             {filteredPlayers.map((player) => {
               const playerPlans = getPlayerPlans(player.id);
@@ -96,11 +98,11 @@ export const PlayerManagement: React.FC<PlayerManagementProps> = ({
                       <h3 className="font-medium text-gray-900">{player.fullName}</h3>
                       <p className="text-sm text-gray-500">ID: {player.id}</p>
                       <p className="text-xs text-gray-400">
-                        Joined: {format(new Date(player.joinDate), 'MMM dd, yyyy')}
+                        {t('joined')}: {format(new Date(player.joinDate), 'MMM dd, yyyy')}
                       </p>
                     </div>
                     <div className="text-right">
-                      <p className="text-sm font-medium text-orange-600">{playerPlans.length} plans</p>
+                      <p className="text-sm font-medium text-orange-600">{t('plans_count', { count: playerPlans.length })}</p>
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
@@ -108,7 +110,7 @@ export const PlayerManagement: React.FC<PlayerManagementProps> = ({
                         }}
                         className="text-xs bg-orange-100 text-orange-700 px-2 py-1 rounded mt-1 hover:bg-orange-200 transition-colors"
                       >
-                        Create Plan
+                        {t('createPlan')}
                       </button>
                     </div>
                   </div>
@@ -116,7 +118,7 @@ export const PlayerManagement: React.FC<PlayerManagementProps> = ({
               );
             })}
             {filteredPlayers.length === 0 && (
-              <p className="text-gray-500 text-center py-8">No players found.</p>
+              <p className="text-gray-500 text-center py-8">{t('noPlayersFound')}</p>
             )}
           </div>
         </div>
@@ -131,33 +133,33 @@ export const PlayerManagement: React.FC<PlayerManagementProps> = ({
                 </div>
                 <div>
                   <h2 className="text-xl font-semibold text-gray-900">{selectedPlayer.fullName}</h2>
-                  <p className="text-gray-500">Player ID: {selectedPlayer.id}</p>
+                  <p className="text-gray-500">{t('player')} ID: {selectedPlayer.id}</p>
                 </div>
               </div>
 
               <div className="space-y-4 mb-6">
                 <div>
-                  <label className="text-sm font-medium text-gray-500">Email</label>
-                  <p className="text-gray-900">{selectedPlayer.email || 'Not provided'}</p>
+                  <label className="text-sm font-medium text-gray-500">{t('email')}</label>
+                  <p className="text-gray-900">{selectedPlayer.email || t('notProvided')}</p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-gray-500">Phone</label>
-                  <p className="text-gray-900">{selectedPlayer.phone || 'Not provided'}</p>
+                  <label className="text-sm font-medium text-gray-500">{t('phone')}</label>
+                  <p className="text-gray-900">{selectedPlayer.phone || t('notProvided')}</p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-gray-500">Join Date</label>
+                  <label className="text-sm font-medium text-gray-500">{t('joinDate')}</label>
                   <p className="text-gray-900">{format(new Date(selectedPlayer.joinDate), 'MMMM dd, yyyy')}</p>
                 </div>
               </div>
 
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-medium text-gray-900">Workout History</h3>
+                  <h3 className="text-lg font-medium text-gray-900">{t('workoutHistory')}</h3>
                   <button
                     onClick={() => onCreatePlan(selectedPlayer.id, selectedPlayer.fullName)}
                     className="text-sm bg-orange-600 text-white px-3 py-1 rounded hover:bg-orange-700 transition-colors"
                   >
-                    Create New Plan
+                    {t('createNewPlan')}
                   </button>
                 </div>
                 <div className="space-y-2 max-h-64 overflow-y-auto">
@@ -167,7 +169,7 @@ export const PlayerManagement: React.FC<PlayerManagementProps> = ({
                         <FileText size={16} className="text-gray-400" />
                         <div>
                           <p className="text-sm font-medium text-gray-900">
-                            {plan.categories.reduce((total, cat) => total + cat.exercises.length, 0)} exercises
+                            {t('exercises_count', { count: plan.categories.reduce((total, cat) => total + cat.exercises.length, 0) })}
                           </p>
                           <p className="text-xs text-gray-500">
                             {format(new Date(plan.date), 'MMM dd, yyyy')}
@@ -178,7 +180,7 @@ export const PlayerManagement: React.FC<PlayerManagementProps> = ({
                     </div>
                   ))}
                   {getPlayerPlans(selectedPlayer.id).length === 0 && (
-                    <p className="text-gray-500 text-center py-4 text-sm">No workout plans yet</p>
+                    <p className="text-gray-500 text-center py-4 text-sm">{t('noWorkoutPlansYet')}</p>
                   )}
                 </div>
               </div>
@@ -186,7 +188,7 @@ export const PlayerManagement: React.FC<PlayerManagementProps> = ({
           ) : (
             <div className="text-center py-12">
               <User size={48} className="mx-auto text-gray-300 mb-4" />
-              <p className="text-gray-500">Select a player to view details and workout history</p>
+              <p className="text-gray-500">{t('selectPlayer')}</p>
             </div>
           )}
         </div>
@@ -196,11 +198,11 @@ export const PlayerManagement: React.FC<PlayerManagementProps> = ({
       {showAddForm && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 overflow-y-auto">
           <div className="bg-white rounded-xl max-w-md w-full p-4 sm:p-6 my-8">
-            <h2 className="text-xl font-semibold mb-4">Add New Player</h2>
+            <h2 className="text-xl font-semibold mb-4">{t('addNewPlayer')}</h2>
             <form onSubmit={handleAddPlayer}>
               <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Full Name *
+                  {t('fullName')} *
                 </label>
                 <input
                   type="text"
@@ -212,7 +214,7 @@ export const PlayerManagement: React.FC<PlayerManagementProps> = ({
               </div>
               <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Email
+                  {t('email')}
                 </label>
                 <input
                   type="email"
@@ -223,7 +225,7 @@ export const PlayerManagement: React.FC<PlayerManagementProps> = ({
               </div>
               <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Phone
+                  {t('phone')}
                 </label>
                 <input
                   type="tel"
@@ -234,7 +236,7 @@ export const PlayerManagement: React.FC<PlayerManagementProps> = ({
               </div>
               <div className="mb-6">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Join Date
+                  {t('joinDate')}
                 </label>
                 <input
                   type="date"
@@ -249,13 +251,13 @@ export const PlayerManagement: React.FC<PlayerManagementProps> = ({
                   onClick={() => setShowAddForm(false)}
                   className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
                 >
-                  Cancel
+                  {t('cancel')}
                 </button>
                 <button
                   type="submit"
                   className="flex-1 px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors"
                 >
-                  Add Player
+                  {t('addPlayer')}
                 </button>
               </div>
             </form>
