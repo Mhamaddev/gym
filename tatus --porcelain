@@ -1,0 +1,198 @@
+warning: in the working copy of 'src/components/WorkoutPlanPDF.tsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/components/WorkoutPlans.tsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/utils/pdfGenerator.tsx', LF will be replaced by CRLF the next time Git touches it
+[1mdiff --git a/src/components/WorkoutPlanPDF.tsx b/src/components/WorkoutPlanPDF.tsx[m
+[1mindex 69dfd38..877b962 100644[m
+[1m--- a/src/components/WorkoutPlanPDF.tsx[m
+[1m+++ b/src/components/WorkoutPlanPDF.tsx[m
+[36m@@ -1,91 +1,28 @@[m
+ import React from 'react';[m
+[31m-import { Document, Page, Text, View, StyleSheet, Font, Image } from '@react-pdf/renderer';[m
+[32m+[m[32mimport { Document, Page, Text, View, StyleSheet, Image } from '@react-pdf/renderer';[m
+ import { WorkoutPlan, GymSettings, CategoryWithDays } from '../types';[m
+ import { format } from 'date-fns';[m
+ [m
+[31m-// Register fonts for PDF generation[m
+[31m-const registerFonts = (customFont?: string) => {[m
+[31m-  // Register default fonts[m
+[31m-  Font.register({[m
+[31m-    family: 'Roboto',[m
+[31m-    fonts: [[m
+[31m-      {[m
+[31m-        src: 'https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-light-webfont.ttf',[m
+[31m-        fontWeight: 300,[m
+[31m-      },[m
+[31m-      {[m
+[31m-        src: 'https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-regular-webfont.ttf',[m
+[31m-        fontWeight: 400,[m
+[31m-      },[m
+[31m-      {[m
+[31m-        src: 'https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-medium-webfont.ttf',[m
+[31m-        fontWeight: 500,[m
+[31m-      },[m
+[31m-      {[m
+[31m-        src: 'https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-bold-webfont.ttf',[m
+[31m-        fontWeight: 700,[m
+[31m-      },[m
+[31m-    ],[m
+[31m-  });[m
+[31m-[m
+[31m-  // Register Arabic/Kurdish font[m
+[31m-  Font.register({[m
+[31m-    family: 'NotoSansArabic',[m
+[31m-    fonts: [[m
+[31m-      {[m
+[31m-        src: 'https://fonts.gstatic.com/s/notosansarabic/v18/nwpxtLGrOAZMl5nJ_wfgRg3DrWFZWsnVBJ_sS6tlqHHFlhQ5l3sQWIHPqzCfyGyvu3CBFQLaig.ttf',[m
+[31m-        fontWeight: 400,[m
+[31m-      },[m
+[31m-      {[m
+[31m-        src: 'https://fonts.gstatic.com/s/notosansarabic/v18/nwpxtLGrOAZMl5nJ_wfgRg3DrWFZWsnVBJ_sS6tlqHHFlhQ5l3sQWIHPqzCfyG6vu3CBFQLaig.ttf',[m
+[31m-        fontWeight: 700,[m
+[31m-      },[m
+[31m-    ],[m
+[31m-  });[m
+[31m-[m
+[31m-  // Register custom font if provided[m
+[31m-  if (customFont) {[m
+[31m-    try {[m
+[31m-      Font.register({[m
+[31m-        family: 'CustomFont',[m
+[31m-        src: customFont,[m
+[31m-      });[m
+[31m-    } catch (error) {[m
+[31m-      console.warn('Failed to register custom font:', error);[m
+[31m-    }[m
+[31m-  }[m
+[31m-};[m
+[31m-[m
+[31m-const createStyles = (language: string, themeColor: string, customFont?: string) => {[m
+[31m-  // Determine font family based on language and custom font availability[m
+[31m-  let fontFamily = 'Roboto';[m
+[31m-  [m
+[31m-  if (customFont) {[m
+[31m-    fontFamily = 'CustomFont';[m
+[31m-  } else if (language === 'ar' || language === 'ku') {[m
+[31m-    fontFamily = 'NotoSansArabic';[m
+[31m-  }[m
+[31m-[m
+[32m+[m[32m// Remove font registration completely and use default fonts[m
+[32m+[m[32mconst createStyles = (language: string, themeColor: string) => {[m
+   return StyleSheet.create({[m
+     page: {[m
+       flexDirection: 'column',[m
+       backgroundColor: '#FFFFFF',[m
+       padding: 20,[m
+[31m-      fontFamily: fontFamily,[m
+[31m-      direction: 'ltr', // Always use LTR[m
+     },[m
+     header: {[m
+       marginBottom: 20,[m
+       borderBottomWidth: 2,[m
+       borderBottomColor: themeColor,[m
+       paddingBottom: 10,[m
+[31m-      flexDirection: 'row', // Always use row[m
+[32m+[m[32m      flexDirection: 'row',[m
+       alignItems: 'center',[m
+       justifyContent: 'space-between',[m
+     },[m
+     headerContent: {[m
+       flex: 1,[m
+[31m-      alignItems: 'flex-start', // Always use flex-start[m
+[32m+[m[32m      alignItems: 'flex-start',[m
+     },[m
+     logo: {[m
+       width: 40,[m
+[36m@@ -98,15 +35,13 @@[m [mconst createStyles = (language: string, themeColor: string, customFont?: string)[m
+       fontWeight: 'bold',[m
+       color: '#1F2937',[m
+       marginBottom: 4,[m
+[31m-      textAlign: 'left', // Always use left[m
+[31m-      fontFamily: fontFamily,[m
+[32m+[m[32m      textAlign: 'left',[m
+     },[m
+     title: {[m
+       fontSize: 16,[m
+       fontWeight: 'bold',[m
+       color: themeColor,[m
+[31m-      textAlign: 'left', // Always use left[m
+[31m-      fontFamily: fontFamily,[m
+[32m+[m[32m      textAlign: 'left',[m
+     },[m
+     section: {[m
+       marginBottom: 15,[m
+[36m@@ -121,14 +56,13 @@[m [mconst createStyles = (language: string, themeColor: string, customFont?: string)[m
+       fontWeight: 'bold',[m
+       color: themeColor,[m
+       marginBottom: 10,[m
+[31m-      textAlign: (language === 'ar' || language === 'ku') ? 'right' : 'left',[m
+[31m-      fontFamily: fontFamily,[m
+[32m+[m[32m      textAlign: 'left',[m
+       borderBottomWidth: 1,[m
+       borderBottomColor: themeColor,[m
+       paddingBottom: 4,[m
+     },[m
+     playerInfoContainer: {[m
+[31m-      flexDirection: (language === 'ar' || language === 'ku') ? 'row-reverse' : 'row',[m
+[32m+[m[32m      flexDirection: 'row',[m
+       justifyContent: 'space-between',[m
+       alignItems: 'flex-start',[m
+       flexWrap: 'wrap',[m
+[36m@@ -143,16 +77,14 @@[m [mconst createStyles = (language: string, themeColor: string, customFont?: string)[m
+       fontWeight: 'bold',[m
+       color: '#9CA3AF',[m
+       marginBottom: 2,[m
+[31m-      textAlign: (language === 'ar' || language === 'ku') ? 'right' : 'left',[m
+[31m-      fontFamily: fontFamily,[m
+[32m+[m[32m      textAlign: 'left',[m
+       textTransform: 'uppercase',[m
+     },[m
+     playerInfoValue: {[m
+       fontSize: 14,[m
+       fontWeight: 'bold',[m
+       color: '#1F2937',[m
+[31m-      textAlign: (language === 'ar' || language === 'ku') ? 'right' : 'left',[m
+[31m-      fontFamily: fontFamily,[m
+[32m+[m[32m      textAlign: 'left',[m
+     },[m
+     totalExercisesHighlight: {[m
+       backgroundColor: themeColor,[m
+[36m@@ -163,7 +95,6 @@[m [mconst createStyles = (language: string, themeColor: string, customFont?: string)[m
+       fontSize: 12,[m
+       fontWeight: 'bold',[m
+       textAlign: 'center',[m
+[31m-      fontFamily: fontFamily,[m
+     },[m
+     exerciseContainer: {[m
+       marginBottom: 12,[m
+[36m@@ -181,16 +112,14 @@[m [mconst createStyles = (language: string, themeColor: string, customFont?: string)[m
+       fontWeight: 'bold',[m
+       color: themeColor,[m
+       marginBottom: 6,[m
+[31m-      textAlign: (language === 'ar' || language === 'ku') ? 'right' : 'left',[m
+[31m-      fontFamily: fontFamily,[m
+[32m+[m[32m      textAlign: 'left',[m
+       textTransform: 'uppercase',[m
+     },[m
+     categoryDays: {[m
+       fontSize: 11,[m
+       color: '#374151',[m
+       marginBottom: 8,[m
+[31m-      textAlign: (language === 'ar' || language === 'ku') ? 'right' : 'left',[m
+[31m-      fontFamily: fontFamily,[m
+[32m+[m[32m      textAlign: 'left',[m
+       fontWeight: '500',[m
+       backgroundColor: '#F3F4F6',[m
+       paddingHorizontal: 6,[m
+[36m@@ -199,7 +128,7 @@[m [mconst createStyles = (language: string, themeColor: string, customFont?: string)[m
+       alignSelf: 'flex-start',[m
+     },[m
+     exerciseItem: {[m
+[31m-      flexDirection: (language === 'ar' || language === 'ku') ? 'row-reverse' : 'row',[m
+[32m+[m[32m      flexDirection: 'row',[m
+       marginBottom: 8,[m
+       padding: 8,[m
+       backgroundColor: '#FFFFFF',[m
+[36m@@ -214,9 +143,8 @@[m [mconst createStyles = (language: string, themeColor: string, customFont?: string)[m
+       color: themeColor,[m
+       minWidth: 20,[m
+       textAlign: '
